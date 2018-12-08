@@ -1,7 +1,10 @@
-package com.example.biaeweverton.projetowb;
+package com.example.biaeweverton.projetowb.files.Models;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+
+import com.example.biaeweverton.projetowb.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -10,5 +13,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+    }
+
+    public void login(View view) {
+    }
+
+    public void register(View view) {
     }
 }

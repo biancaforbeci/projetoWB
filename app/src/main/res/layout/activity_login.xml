@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.biaeweverton.projetowb.LoginActivity">
+    tools:context="com.example.biaeweverton.projetowb.files.Models.LoginActivity">
 
 
     <LinearLayout
@@ -89,6 +89,7 @@
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="login"
             android:text="Login" />
 
         <Space
@@ -99,7 +100,9 @@
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Registrar" />
+            android:onClick="register"
+            android:text="Registrar"
+            tools:ignore="OnClick" />
 
     </LinearLayout>
 
