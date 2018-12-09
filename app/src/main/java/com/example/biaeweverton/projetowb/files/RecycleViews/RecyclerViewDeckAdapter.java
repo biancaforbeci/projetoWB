@@ -29,7 +29,11 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-
+        RecycleViewDeckViewHolder view = (RecycleViewDeckViewHolder) viewHolder;
+        Deck deck = this.deckList.get(i);
+        view.tvNameDeck.setText(deck.name);
+        String tvStudy = "Estudar hoje: " + deck.studyToday;
+        view.tvStudyToday.setText(tvStudy);
     }
 
     @Override
