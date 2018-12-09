@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         context = this;
 
         //RecycleView Config
+        rvDeck.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
         rvDeck.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false));
 
         //Class to Control View
