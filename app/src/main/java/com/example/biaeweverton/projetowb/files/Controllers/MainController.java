@@ -3,11 +3,13 @@ package com.example.biaeweverton.projetowb.files.Controllers;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.example.biaeweverton.projetowb.files.Class.Deck;
 import com.example.biaeweverton.projetowb.files.RecycleViews.RecyclerViewDeckAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -19,7 +21,10 @@ import java.util.ArrayList;
  */
 
 public class MainController {
-
+    private FirebaseFirestore db;
+    public MainController(){
+        this.db = FirebaseFirestore.getInstance();
+    }
     /*
     * @param context -> context this activity
     * @param rvDeck -> Recycle View to list all result
@@ -27,8 +32,7 @@ public class MainController {
     * @return void
      */
     public void getDeckList(final Context context, final RecyclerView rvDeck, String idUser){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("deck").whereEqualTo("idUser", idUser).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        this.db.collection("deck").whereEqualTo("idUser", idUser).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful() && task.getResult() != null){
@@ -38,6 +42,17 @@ public class MainController {
                         deckList.add(deck);
                     }
                     rvDeck.setAdapter(new RecyclerViewDeckAdapter(context, deckList));
+                }
+            }
+        });
+    }
+
+    public void addNewDeck(Deck deck){
+        this.db.collection("deck").add(deck).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                if(task.isSuccessful()){
+                    Log.i("Teste", "Salvado.");
                 }
             }
         });
