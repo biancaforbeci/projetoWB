@@ -11,10 +11,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.EventListener;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by biafo on 08/12/2018.
@@ -32,12 +36,12 @@ public class MainController {
     * @return void
      */
     public void getDeckList(final Context context, final RecyclerView rvDeck, String idUser){
-        this.db.collection("deck").whereEqualTo("idUser", idUser).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        this.db.collection("deck").whereEqualTo("idUser", idUser).addSnapshotListener(new com.google.firebase.firestore.EventListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful() && task.getResult() != null){
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(queryDocumentSnapshots != null){
                     ArrayList<Deck> deckList = new ArrayList<>();
-                    for(QueryDocumentSnapshot doc : task.getResult()){
+                    for(QueryDocumentSnapshot doc : queryDocumentSnapshots){
                         Deck deck = doc.toObject(Deck.class);
                         deckList.add(deck);
                     }
