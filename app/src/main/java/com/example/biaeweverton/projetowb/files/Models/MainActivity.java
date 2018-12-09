@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         rvDeck.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false));
 
         //Class to Control View
-        mainController = new MainController();
+        mainController = new MainController(context);
 
         //Method to get DeckList
         mainController.getDeckList(context,rvDeck, "Ry0QC6OMFMxYtU5Ui5jM");
@@ -63,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
         btnNewDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(edNameDeck.getText().toString().equals("")){
+                    Toast.makeText(MainActivity.this, "Escreva o nome do Deck", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Deck deck = new Deck();
                 deck.idUser = "Ry0QC6OMFMxYtU5Ui5jM";
                 deck.name = edNameDeck.getText().toString();

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.biaeweverton.projetowb.files.Class.Deck;
 import com.example.biaeweverton.projetowb.files.RecycleViews.RecyclerViewDeckAdapter;
@@ -26,8 +27,10 @@ import javax.annotation.Nullable;
 
 public class MainController {
     private FirebaseFirestore db;
-    public MainController(){
+    private Context context;
+    public MainController(Context context){
         this.db = FirebaseFirestore.getInstance();
+        this.context = context;
     }
     /*
     * @param context -> context this activity
@@ -56,7 +59,7 @@ public class MainController {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if(task.isSuccessful()){
-                    Log.i("Teste", "Salvado.");
+                    Toast.makeText(context, "Novo Deck salvo...", Toast.LENGTH_SHORT).show();
                 }
             }
         });
