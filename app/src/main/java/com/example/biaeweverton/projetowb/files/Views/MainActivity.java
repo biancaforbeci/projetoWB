@@ -1,4 +1,4 @@
-package com.example.biaeweverton.projetowb.files.Models;
+package com.example.biaeweverton.projetowb.files.Views;
 
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
@@ -11,8 +11,9 @@ import android.view.View;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.biaeweverton.projetowb.R;
-import com.example.biaeweverton.projetowb.files.Class.Deck;
+import com.example.biaeweverton.projetowb.files.Models.Deck;
 import com.example.biaeweverton.projetowb.files.Controllers.MainController;
+
 
 public class MainActivity extends AppCompatActivity {
 

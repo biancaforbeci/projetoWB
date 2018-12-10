@@ -1,4 +1,4 @@
-package com.example.biaeweverton.projetowb.files.Class;
+package com.example.biaeweverton.projetowb.files.Models;
 
 
 import java.io.Serializable;
