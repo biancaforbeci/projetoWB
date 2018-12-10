@@ -11,10 +11,12 @@ class RecycleViewDeckViewHolder extends RecyclerView.ViewHolder {
     public TextView tvNameDeck;
     public TextView tvStudyToday;
     public BootstrapButton btnDeleteDeck;
+    public BootstrapButton btnEditDeck;
     public RecycleViewDeckViewHolder(View view) {
         super(view);
         this.tvNameDeck = view.findViewById(R.id.tvNameDeck);
         this.tvStudyToday = view.findViewById(R.id.tvStudyToday);
         this.btnDeleteDeck = view.findViewById(R.id.btnDeleteDeck);
+        this.btnEditDeck = view.findViewById(R.id.btnEditDeck);
     }
 }

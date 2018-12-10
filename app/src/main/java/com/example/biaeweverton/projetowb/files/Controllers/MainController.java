@@ -74,4 +74,13 @@ public class MainController {
             }
         });
     }
+
+    public void updateDeck(Deck deck) {
+        this.db.collection("deck").document(deck.id).set(deck).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                //Successful
+            }
+        });
+    }
 }
