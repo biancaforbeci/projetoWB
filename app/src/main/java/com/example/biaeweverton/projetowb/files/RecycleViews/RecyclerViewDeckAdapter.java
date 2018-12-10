@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.biaeweverton.projetowb.R;
+import com.example.biaeweverton.projetowb.files.Controllers.MainController;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
 
 import java.util.ArrayList;
@@ -29,10 +30,19 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         RecycleViewDeckViewHolder view = (RecycleViewDeckViewHolder) viewHolder;
-        Deck deck = this.deckList.get(i);
+        final Deck deck = this.deckList.get(i);
         view.tvNameDeck.setText(deck.name);
         String tvStudy = "Estudar hoje: " + deck.studyToday;
         view.tvStudyToday.setText(tvStudy);
+
+        //Button
+        view.btnDeleteDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainController mainController = new MainController(context);
+                mainController.deleteDeck(deck.id);
+            }
+        });
     }
 
     @Override

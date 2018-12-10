@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
  */
 
 public class MainController {
-    private FirebaseFirestore db;
+    public FirebaseFirestore db;
     private Context context;
     public MainController(Context context){
         this.db = FirebaseFirestore.getInstance();
@@ -46,6 +46,7 @@ public class MainController {
                     ArrayList<Deck> deckList = new ArrayList<>();
                     for(QueryDocumentSnapshot doc : queryDocumentSnapshots){
                         Deck deck = doc.toObject(Deck.class);
+                        deck.id = doc.getId();
                         deckList.add(deck);
                     }
                     rvDeck.setAdapter(new RecyclerViewDeckAdapter(context, deckList));
@@ -61,6 +62,15 @@ public class MainController {
                 if(task.isSuccessful()){
                     Toast.makeText(context, "Novo Deck salvo...", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+    public void deleteDeck(String idDeck){
+        this.db.collection("deck").document(idDeck).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
             }
         });
     }

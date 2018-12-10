@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.example.biaeweverton.projetowb.R;
 import com.example.biaeweverton.projetowb.files.Controllers.LoginController;
+import com.example.biaeweverton.projetowb.files.Controllers.MainController;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 
     public void login(View view) {

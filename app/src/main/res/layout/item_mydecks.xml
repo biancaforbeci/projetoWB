@@ -21,13 +21,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:text="Estudar hoje 000"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNameDeck" />
 
     <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/bootstrapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -40,4 +39,30 @@
         app:layout_constraintTop_toTopOf="@+id/tvNameDeck"
         app:roundedCorners="true" />
 
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/btnDeleteDeck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:bootstrapBrand="danger"
+        app:bootstrapSize="sm"
+        app:bootstrapText="Apagar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bootstrapButton"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:bootstrapBrand="regular"
+        app:bootstrapSize="sm"
+        app:bootstrapText="Editar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnDeleteDeck"
+        app:roundedCorners="true" />
 </android.support.constraint.ConstraintLayout>
