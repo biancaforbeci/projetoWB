@@ -6,6 +6,7 @@ import java.io.Serializable;
 public class Deck implements Serializable {
     public String name;
     public String idUser;
+    public int studyToday;
 
     public Deck(){}
     public Deck(String name, String idUser){
