@@ -1,6 +1,7 @@
 package com.example.biaeweverton.projetowb.files.Views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openDialog(View view) {
+
         final AlertDialog alert = new AlertDialog.Builder(this.context).create();
         View v = View.inflate(this.context, R.layout.dialog_newdeck, null);
         //Initialized Element's
