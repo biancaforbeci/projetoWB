@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText password;
     private EditText numberTyped;
     private EditText number;
+    private Button resendButton;
 
 
     @Override
@@ -30,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
         password=findViewById(R.id.passwordUser);
         numberTyped=findViewById(R.id.phone);
         number= findViewById(R.id.confirmPassword);
+        resendButton = findViewById(R.id.btnResend);
     }
 
     public void saveAccount(View view){
@@ -71,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(request){
             Toast.makeText(RegisterActivity.this,"Enviado com sucesso",Toast.LENGTH_LONG).show();
-
+            resendButton.setEnabled(true);
         }else{
             AlertDialog builder1 = new AlertDialog.Builder(this)
                     .setTitle("Erro de confirmação")
@@ -79,5 +82,9 @@ public class RegisterActivity extends AppCompatActivity {
                     .setNeutralButton("OK",null)
                     .show();
         }
+    }
+
+    public void resendSMS(View view) {
+
     }
 }
