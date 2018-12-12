@@ -16,6 +16,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email;
     private EditText password;
 
+
     //Class controller login
     LoginController loginController= new LoginController();
 
@@ -23,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 
     public void login(View view) {

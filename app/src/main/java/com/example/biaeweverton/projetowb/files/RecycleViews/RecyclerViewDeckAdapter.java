@@ -7,11 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.biaeweverton.projetowb.R;
 import com.example.biaeweverton.projetowb.files.Controllers.MainController;
+import com.example.biaeweverton.projetowb.files.Models.Data;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
 
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
-        RecycleViewDeckViewHolder view = (RecycleViewDeckViewHolder) viewHolder;
+        final RecycleViewDeckViewHolder view = (RecycleViewDeckViewHolder) viewHolder;
         final Deck deck = this.deckList.get(i);
         view.tvNameDeck.setText(deck.name);
         String tvStudy = "Estudar hoje: " + deck.studyToday;
@@ -79,6 +82,36 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
                     }
                 });
 
+                alert.show();
+            }
+        });
+
+        view.btnAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog alert = new AlertDialog.Builder(context).create();
+                View alertV = View.inflate(context, R.layout.dialog_additemdeck, null);
+
+                final EditText edPharse = alertV.findViewById(R.id.edPhrase);
+                final EditText edTranslate = alertV.findViewById(R.id.edTranslate);
+
+                BootstrapButton btnAddItem = alertV.findViewById(R.id.btnAddItem);
+
+                alert.setView(alertV);
+
+                btnAddItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Data data = new Data();
+                        data.setTitle(edPharse.getText().toString());
+                        data.setTranslate(edTranslate.getText().toString());
+                        data.setIdDeck(deckList.get(i).id);
+                        data.setDay(2);
+
+                        MainController mainController = new MainController(context);
+                        mainController.addItemDeck(data);
+                    }
+                });
                 alert.show();
             }
         });
