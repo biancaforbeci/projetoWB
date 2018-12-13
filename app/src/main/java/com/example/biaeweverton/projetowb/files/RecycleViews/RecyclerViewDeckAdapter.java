@@ -4,11 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
@@ -16,6 +19,7 @@ import com.example.biaeweverton.projetowb.R;
 import com.example.biaeweverton.projetowb.files.Controllers.MainController;
 import com.example.biaeweverton.projetowb.files.Models.Data;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
+import com.example.biaeweverton.projetowb.files.Models.MainControllerInterface;
 
 import java.util.ArrayList;
 
@@ -89,19 +93,23 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
         view.btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog alert = new AlertDialog.Builder(context).create();
+                final AlertDialog alert = new AlertDialog.Builder(context).create();
                 View alertV = View.inflate(context, R.layout.dialog_additemdeck, null);
 
                 final EditText edPharse = alertV.findViewById(R.id.edPhrase);
                 final EditText edTranslate = alertV.findViewById(R.id.edTranslate);
-
-                BootstrapButton btnAddItem = alertV.findViewById(R.id.btnAddItem);
+                final BootstrapButton btnCancel = alertV.findViewById(R.id.btnCancel);
+                final ProgressBar pbAddItemDeck = alertV.findViewById(R.id.pbAddItemDeck);
+                final BootstrapButton btnAddItem = alertV.findViewById(R.id.btnAddItem);
 
                 alert.setView(alertV);
+
+                // Btn add
 
                 btnAddItem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        pbAddItemDeck.setVisibility(View.VISIBLE);
                         Data data = new Data();
                         data.setTitle(edPharse.getText().toString());
                         data.setTranslate(edTranslate.getText().toString());
@@ -109,7 +117,25 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
                         data.setDay(2);
 
                         MainController mainController = new MainController(context);
-                        mainController.addItemDeck(data);
+                        mainController.addItemDeck(data, new MainControllerInterface() {
+                            @Override
+                            public void onCompleteSave(Boolean res) {
+                                if(res){
+                                    pbAddItemDeck.setVisibility(View.INVISIBLE);
+                                    edPharse.setText("");
+                                    edTranslate.setText("");
+                                    Toast.makeText(context, "Adicionado!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                });
+
+                //btn Cancel
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alert.cancel();
                     }
                 });
                 alert.show();

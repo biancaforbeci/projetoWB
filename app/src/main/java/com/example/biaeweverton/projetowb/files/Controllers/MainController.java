@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.example.biaeweverton.projetowb.files.Models.Data;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
+import com.example.biaeweverton.projetowb.files.Models.MainControllerInterface;
 import com.example.biaeweverton.projetowb.files.RecycleViews.RecyclerViewDeckAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -56,12 +57,12 @@ public class MainController {
         });
     }
 
-    public void addNewDeck(Deck deck){
+    public void addNewDeck(Deck deck, final MainControllerInterface mainControllerInterface){
         this.db.collection("deck").add(deck).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(context, "Novo Deck salvo...", Toast.LENGTH_SHORT).show();
+                    mainControllerInterface.onCompleteSave(true);
                 }
             }
         });
@@ -85,11 +86,11 @@ public class MainController {
         });
     }
 
-    public void addItemDeck(Data data){
+    public void addItemDeck(Data data, final MainControllerInterface mainControllerInterface){
         this.db.collection("data").add(data).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
-
+                mainControllerInterface.onCompleteSave(true);
             }
         });
     }

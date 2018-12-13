@@ -16,6 +16,7 @@ import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.biaeweverton.projetowb.R;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
 import com.example.biaeweverton.projetowb.files.Controllers.MainController;
+import com.example.biaeweverton.projetowb.files.Models.MainControllerInterface;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -74,7 +75,13 @@ public class MainActivity extends AppCompatActivity {
                 Deck deck = new Deck();
                 deck.idUser = "Ry0QC6OMFMxYtU5Ui5jM";
                 deck.name = edNameDeck.getText().toString();
-                mainController.addNewDeck(deck);
+                mainController.addNewDeck(deck, new MainControllerInterface() {
+                    @Override
+                    public void onCompleteSave(Boolean res) {
+                        Toast.makeText(MainActivity.this, "Deck Criado!", Toast.LENGTH_SHORT).show();
+                        alert.cancel();
+                    }
+                });
             }
         });
     }
