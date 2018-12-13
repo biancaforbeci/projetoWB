@@ -43,8 +43,6 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
         final RecycleViewDeckViewHolder view = (RecycleViewDeckViewHolder) viewHolder;
         final Deck deck = this.deckList.get(i);
         view.tvNameDeck.setText(deck.name);
-        String tvStudy = "Estudar hoje: " + deck.studyToday;
-        view.tvStudyToday.setText(tvStudy);
 
         //Button
         view.btnDeleteDeck.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +125,11 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
                                     Toast.makeText(context, "Adicionado!", Toast.LENGTH_SHORT).show();
                                 }
                             }
+
+                            @Override
+                            public void onLoadQuantityDataToStudy(int quantity) {
+
+                            }
                         });
                     }
                 });
@@ -139,6 +142,20 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
                     }
                 });
                 alert.show();
+            }
+        });
+
+        MainController mainController = new MainController(context);
+        mainController.getQuantityDataToStudy(deckList.get(i).id, new MainControllerInterface() {
+            @Override
+            public void onCompleteSave(Boolean res) {
+
+            }
+
+            @Override
+            public void onLoadQuantityDataToStudy(int quantity) {
+                String tvStudy = "Estudar hoje: " + quantity;
+                view.tvStudyToday.setText(tvStudy);
             }
         });
     }

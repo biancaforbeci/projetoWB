@@ -94,4 +94,13 @@ public class MainController {
             }
         });
     }
+
+    public void getQuantityDataToStudy(String idDeck, final MainControllerInterface mainControllerInterface){
+        this.db.collection("data").whereEqualTo("idDeck", idDeck).addSnapshotListener(new com.google.firebase.firestore.EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                mainControllerInterface.onLoadQuantityDataToStudy(queryDocumentSnapshots.size());
+            }
+        });
+    }
 }

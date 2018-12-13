@@ -81,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Deck Criado!", Toast.LENGTH_SHORT).show();
                         alert.cancel();
                     }
+
+                    @Override
+                    public void onLoadQuantityDataToStudy(int quantity) {
+
+                    }
                 });
             }
         });
