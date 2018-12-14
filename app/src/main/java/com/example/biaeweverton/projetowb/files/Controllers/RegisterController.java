@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -35,7 +36,6 @@ import static android.content.ContentValues.TAG;
 
 public class RegisterController {
     private FirebaseFirestore db;
-    private FirebaseAuth fbAuth;
     private Context context;
     private String phoneVerificationID;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks verificationCallbacks;
@@ -58,64 +58,19 @@ public class RegisterController {
         });
     }
 
-    public int verification(String email, String password, String numberTyped) {
-        if (LoginController.isEmailValid(email) == false || password.length() > 8) {
+    public int verification(String email, String password, String numberTyped,String phoneVerificationID) {
+        if ( password.length() > 8) {
             return 1;
-        } else if (validationPhone(numberTyped) == false) {
-            return 2;
         } else {
             return 3;
         }
     }
 
-    public boolean sendSMS(String phone) {
-        setUpVerificationCallbacks();
+    public PhoneAuthCredential validationPhone(String number,String phoneVerificationID) {
 
-        try {
-            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                    phone,
-                    60,
-                    TimeUnit.SECONDS,
-                    (Executor) this,
-                    verificationCallbacks);
-            return true;
-        }catch (Exception e){
-            return false;
-        }
-    }
-
-    private void setUpVerificationCallbacks() {
-        verificationCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-            @Override
-            public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-
-            }
-
-            @Override
-            public void onVerificationFailed(FirebaseException e) {
-
-                if(e instanceof  FirebaseAuthInvalidCredentialsException){
-                    Log.d(TAG,"Erro ao enviar SMS.");
-                }else if(e instanceof  FirebaseTooManyRequestsException){
-                    Log.d(TAG,"Excesso de requisições.");
-                }
-
-            }
-
-            @Override
-            public void onCodeSent(String verificationId,
-                                   PhoneAuthProvider.ForceResendingToken token) {
-                phoneVerificationID=verificationId;
-                resendToken = token;
-
-            }
-        };
-    }
-
-    public boolean validationPhone(String number) {
-        //here
        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(phoneVerificationID,number);
-       return true;
+
+       return credential;
     }
 
 

@@ -29,6 +29,7 @@ dependencies {
     //Add Bootstrap and Firebase
     implementation 'com.beardedhen:androidbootstrap:2.3.2'
     implementation 'com.google.firebase:firebase-auth:16.0.4'
+    compile 'com.google.firebase:firebase-messaging:17.3.4'
     implementation 'com.google.firebase:firebase-firestore:17.1.4'
     implementation 'com.google.firebase:firebase-core:16.0.6'
 
