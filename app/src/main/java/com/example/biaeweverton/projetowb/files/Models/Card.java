@@ -2,8 +2,8 @@ package com.example.biaeweverton.projetowb.files.Models;
 
 public class Card {
     private String idDeck;
-    private String title;
-    private String translate;
+    private String front;
+    private String back;
     private int day;
 
     public String getIdDeck() {
@@ -14,20 +14,20 @@ public class Card {
         this.idDeck = idDeck;
     }
 
-    public String getTitle() {
-        return title;
+    public String getFront() {
+        return front;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setFront(String front) {
+        this.front = front;
     }
 
-    public String getTranslate() {
-        return translate;
+    public String getBack() {
+        return back;
     }
 
-    public void setTranslate(String translate) {
-        this.translate = translate;
+    public void setBack(String back) {
+        this.back = back;
     }
 
     public int getDay() {

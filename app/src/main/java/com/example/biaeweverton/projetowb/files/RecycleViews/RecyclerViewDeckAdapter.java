@@ -19,7 +19,7 @@ import com.example.biaeweverton.projetowb.files.Controllers.MainController;
 import com.example.biaeweverton.projetowb.files.Models.Card;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
 import com.example.biaeweverton.projetowb.files.Models.MainControllerInterface;
-import com.example.biaeweverton.projetowb.files.StudyActivity;
+import com.example.biaeweverton.projetowb.files.Views.StudyActivity;
 
 import java.util.ArrayList;
 
@@ -109,8 +109,8 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
                     public void onClick(View v) {
                         pbAddItemDeck.setVisibility(View.VISIBLE);
                         Card card = new Card();
-                        card.setTitle(edPharse.getText().toString());
-                        card.setTranslate(edTranslate.getText().toString());
+                        card.setFront(edPharse.getText().toString());
+                        card.setBack(edTranslate.getText().toString());
                         card.setIdDeck(deckList.get(i).id);
                         card.setDay(2);
 
@@ -149,6 +149,7 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, StudyActivity.class);
+                intent.putExtra("idDeck", deckList.get(i).id);
                 context.startActivity(intent);
             }
         });
