@@ -1,6 +1,6 @@
 package com.example.biaeweverton.projetowb.files.Models;
 
-public class Data {
+public class Card {
     private String idDeck;
     private String title;
     private String translate;

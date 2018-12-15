@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         final AlertDialog alert = new AlertDialog.Builder(this.context).create();
         View v = View.inflate(this.context, R.layout.dialog_newdeck, null);
+
         //Initialized Element's
         BootstrapButton btnNewDeck = v.findViewById(R.id.bntNewDeck);
         BootstrapButton btnCancel = v.findViewById(R.id.btnCancel);

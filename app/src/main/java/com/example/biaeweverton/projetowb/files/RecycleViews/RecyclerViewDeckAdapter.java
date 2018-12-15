@@ -4,11 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -17,7 +15,7 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.biaeweverton.projetowb.R;
 import com.example.biaeweverton.projetowb.files.Controllers.MainController;
-import com.example.biaeweverton.projetowb.files.Models.Data;
+import com.example.biaeweverton.projetowb.files.Models.Card;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
 import com.example.biaeweverton.projetowb.files.Models.MainControllerInterface;
 
@@ -108,14 +106,14 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         pbAddItemDeck.setVisibility(View.VISIBLE);
-                        Data data = new Data();
-                        data.setTitle(edPharse.getText().toString());
-                        data.setTranslate(edTranslate.getText().toString());
-                        data.setIdDeck(deckList.get(i).id);
-                        data.setDay(2);
+                        Card card = new Card();
+                        card.setTitle(edPharse.getText().toString());
+                        card.setTranslate(edTranslate.getText().toString());
+                        card.setIdDeck(deckList.get(i).id);
+                        card.setDay(2);
 
                         MainController mainController = new MainController(context);
-                        mainController.addItemDeck(data, new MainControllerInterface() {
+                        mainController.addItemDeck(card, new MainControllerInterface() {
                             @Override
                             public void onCompleteSave(Boolean res) {
                                 if(res){

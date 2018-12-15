@@ -3,10 +3,8 @@ package com.example.biaeweverton.projetowb.files.Controllers;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.example.biaeweverton.projetowb.files.Models.Data;
+import com.example.biaeweverton.projetowb.files.Models.Card;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
 import com.example.biaeweverton.projetowb.files.Models.MainControllerInterface;
 import com.example.biaeweverton.projetowb.files.RecycleViews.RecyclerViewDeckAdapter;
@@ -19,7 +17,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.EventListener;
 
 import javax.annotation.Nullable;
 
@@ -86,8 +83,8 @@ public class MainController {
         });
     }
 
-    public void addItemDeck(Data data, final MainControllerInterface mainControllerInterface){
-        this.db.collection("data").add(data).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+    public void addItemDeck(Card card, final MainControllerInterface mainControllerInterface){
+        this.db.collection("card").add(card).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 mainControllerInterface.onCompleteSave(true);
@@ -96,10 +93,10 @@ public class MainController {
     }
 
     public void getQuantityDataToStudy(String idDeck, final MainControllerInterface mainControllerInterface){
-        this.db.collection("data").whereEqualTo("idDeck", idDeck).addSnapshotListener(new com.google.firebase.firestore.EventListener<QuerySnapshot>() {
+        this.db.collection("card").whereEqualTo("idDeck", idDeck).addSnapshotListener(new com.google.firebase.firestore.EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                mainControllerInterface.onLoadQuantityDataToStudy(queryDocumentSnapshots.size());
+                if(queryDocumentSnapshots != null) mainControllerInterface.onLoadQuantityDataToStudy(queryDocumentSnapshots.size());
             }
         });
     }
