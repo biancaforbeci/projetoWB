@@ -21,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".files.Views.MainActivity" />
-        <activity android:name=".files.Views.RegisterActivity"></activity>
+        <activity android:name=".files.Views.RegisterActivity" />
+        <activity android:name=".files.StudyActivity"></activity>
     </application>
 
 </manifest>
