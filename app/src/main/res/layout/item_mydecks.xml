@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvNameDeck" />
 
     <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/bootstrapButton"
+        android:id="@+id/btnStudyNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -51,7 +51,7 @@
         app:bootstrapText="Apagar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bootstrapButton"
+        app:layout_constraintTop_toBottomOf="@+id/btnStudyNow"
         app:layout_constraintVertical_bias="1.0" />
 
     <com.beardedhen.androidbootstrap.BootstrapButton

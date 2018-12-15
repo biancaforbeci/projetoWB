@@ -2,6 +2,7 @@ package com.example.biaeweverton.projetowb.files.RecycleViews;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.example.biaeweverton.projetowb.files.Controllers.MainController;
 import com.example.biaeweverton.projetowb.files.Models.Card;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
 import com.example.biaeweverton.projetowb.files.Models.MainControllerInterface;
+import com.example.biaeweverton.projetowb.files.StudyActivity;
 
 import java.util.ArrayList;
 
@@ -140,6 +142,14 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
                     }
                 });
                 alert.show();
+            }
+        });
+
+        view.btnStudyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, StudyActivity.class);
+                context.startActivity(intent);
             }
         });
 
