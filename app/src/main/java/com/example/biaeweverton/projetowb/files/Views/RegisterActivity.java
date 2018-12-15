@@ -34,11 +34,11 @@ import static android.content.ContentValues.TAG;
 
 public class RegisterActivity extends AppCompatActivity {
     private Context context;
-    RegisterController registerController = new RegisterController(context);
     private EditText email;
     private EditText numberTyped;
     private EditText number;
     private boolean SMSTyped;
+    RegisterController registerController;
     private Button resendButton;
     private FirebaseAuth fbAuth;
     private String phoneVerificationID;
@@ -54,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
         numberTyped=findViewById(R.id.phone);
         number= findViewById(R.id.confirmPassword);
         resendButton = findViewById(R.id.btnResend);
+        registerController = new RegisterController(this);
         //numberTyped.addTextChangedListener(MaskEditUtil.mask(numberTyped,MaskEditUtil.FORMAT_FONE));
     }
 
@@ -81,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                 break;
 
             case 3:
-                RegisterController user = new RegisterController();
+                RegisterController user = new RegisterController(this);
                 user.addNewAccount(email.getText().toString().trim());
                 break;
 

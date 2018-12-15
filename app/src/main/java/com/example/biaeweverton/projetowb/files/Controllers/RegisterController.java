@@ -47,10 +47,6 @@ public class RegisterController {
         this.context = context;
     }
 
-    public RegisterController(){
-
-    }
-
     public void addNewAccount(String email) {
         Account user = new Account();
         user.email=email;

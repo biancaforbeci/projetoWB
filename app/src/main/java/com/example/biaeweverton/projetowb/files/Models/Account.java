@@ -6,7 +6,6 @@ package com.example.biaeweverton.projetowb.files.Models;
 
 public class Account {
     public String email;
-    public String id;
     public Account(){}
     public Account(String email){
         this.email=email;
