@@ -5,13 +5,9 @@ package com.example.biaeweverton.projetowb.files.Models;
  */
 
 public class Account {
-    private String email;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public String email;
+    public Account(){}
+    public Account(String email){
+        this.email=email;
     }
 }

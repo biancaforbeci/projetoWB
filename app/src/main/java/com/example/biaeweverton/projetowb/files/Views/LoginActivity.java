@@ -14,7 +14,6 @@ import com.example.biaeweverton.projetowb.files.Controllers.MainController;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText email;
-    private EditText password;
 
 
     //Class controller login
@@ -29,14 +28,13 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login(View view) {
         email=findViewById(R.id.email);
-        password=findViewById(R.id.password);
 
-        switch (loginController.validation(email.getText().toString(),password.getText().toString())){
+        switch (loginController.validation(email.getText().toString().trim())){
             case 1:
 
                 AlertDialog builder= new AlertDialog.Builder(this)
                         .setTitle("Erro")
-                        .setMessage("Email ou senha estão vazios.")
+                        .setMessage("Email em branco.")
                         .setNeutralButton("OK",null)
                         .show();
 

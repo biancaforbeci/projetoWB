@@ -34,11 +34,11 @@ import static android.content.ContentValues.TAG;
 
 public class RegisterActivity extends AppCompatActivity {
     private Context context;
-    RegisterController registerController = new RegisterController(context);
     private EditText email;
-    private EditText password;
     private EditText numberTyped;
     private EditText number;
+    private boolean SMSTyped;
+    RegisterController registerController;
     private Button resendButton;
     private FirebaseAuth fbAuth;
     private String phoneVerificationID;
@@ -51,21 +51,21 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         email=findViewById(R.id.emailUser);
-        password=findViewById(R.id.passwordUser);
         numberTyped=findViewById(R.id.phone);
         number= findViewById(R.id.confirmPassword);
         resendButton = findViewById(R.id.btnResend);
+        registerController = new RegisterController(this);
         //numberTyped.addTextChangedListener(MaskEditUtil.mask(numberTyped,MaskEditUtil.FORMAT_FONE));
     }
 
     public void saveAccount(View view){
 
-        switch (registerController.verification(email.getText().toString(),password.getText().toString(),number.getText().toString(),phoneVerificationID)){
+        switch (registerController.verification(email.getText().toString().trim(),number.getText().toString(),phoneVerificationID)){
             case 1:
 
                 AlertDialog builder= new AlertDialog.Builder(this)
                         .setTitle("Erro")
-                        .setMessage("Verifique se foi digitado um email válido e se a senha possui até 8 caracteres.")
+                        .setMessage("Verifique se foi digitado um email válido.")
                         .setNeutralButton("OK",null)
                         .show();
 
@@ -82,10 +82,8 @@ public class RegisterActivity extends AppCompatActivity {
                 break;
 
             case 3:
-                Account account = new Account();
-                account.setEmail(email.getText().toString());
-                registerController.addNewAccount(account);
-
+                RegisterController user = new RegisterController(this);
+                user.addNewAccount(email.getText().toString().trim());
                 break;
 
         }
@@ -163,16 +161,14 @@ public class RegisterActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "Sucesso");
 
-                            //add new account here;
+                           SMSTyped=true;
 
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "Falha na autenticação !");
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                                // [START_EXCLUDE silent]
                                 number.setError("Código inválido !.");
-                                // [END_EXCLUDE]
+
                             }
                         }
                     }
