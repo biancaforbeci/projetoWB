@@ -37,6 +37,7 @@ import static android.content.ContentValues.TAG;
 public class RegisterController {
     private FirebaseFirestore db;
     private Context context;
+    private boolean saveDB;
     private String phoneVerificationID;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks verificationCallbacks;
     private PhoneAuthProvider.ForceResendingToken resendToken;
@@ -47,7 +48,8 @@ public class RegisterController {
         this.context = context;
     }
 
-    public void addNewAccount(String email) {
+    public boolean addNewAccount(String email) {
+        saveDB=false;
         Account user = new Account();
         user.email=email;
 
@@ -57,15 +59,23 @@ public class RegisterController {
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(context, "Conta criada com sucesso !", Toast.LENGTH_SHORT).show();
+                    saveDB=true;
                 }
             }
         });
+
+        return saveDB;
+
     }
 
     public int verification(String email, String numberTyped,String phoneVerificationID) {
+        LoginController emailExist = new LoginController();
+
         if (LoginController.isEmailValid(email) == false){
             return 1;
-        } else {
+        }else if(emailExist.isEmailExist(email) == true)
+            return 2;
+        else {
             return 3;
         }
     }

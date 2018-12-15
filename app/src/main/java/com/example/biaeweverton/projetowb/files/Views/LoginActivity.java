@@ -49,8 +49,16 @@ public class LoginActivity extends AppCompatActivity {
                         .show();
                 break;
 
-
             case 3:
+
+                AlertDialog builder2= new AlertDialog.Builder(this)
+                        .setTitle("Erro")
+                        .setMessage("Esse email não está cadastrado, registre-se !")
+                        .setNeutralButton("OK",null)
+                        .show();
+                break;
+
+            case 4:
                 Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(intent);
                 break;

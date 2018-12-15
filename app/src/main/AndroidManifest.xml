@@ -22,7 +22,10 @@
         </activity>
         <activity android:name=".files.Views.MainActivity" />
         <activity android:name=".files.Views.RegisterActivity" />
-        <activity android:name=".files.Views.StudyActivity" android:parentActivityName=".files.Views.MainActivity"></activity>
+        <activity
+            android:name=".files.Views.StudyActivity"
+            android:parentActivityName=".files.Views.MainActivity" />
+        <activity android:name=".files.Views.TranslateActivity"></activity>
     </application>
 
 </manifest>

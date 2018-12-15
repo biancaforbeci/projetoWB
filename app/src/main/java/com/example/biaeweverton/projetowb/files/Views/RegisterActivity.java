@@ -74,8 +74,8 @@ public class RegisterActivity extends AppCompatActivity {
             case 2:
 
                 AlertDialog builder1= new AlertDialog.Builder(this)
-                        .setTitle("Erro de confirmação")
-                        .setMessage("Número digitado não corresponde ao enviado por SMS.")
+                        .setTitle("Erro")
+                        .setMessage("Esse email já está cadastrado !")
                         .setNeutralButton("OK",null)
                         .show();
 
@@ -83,7 +83,15 @@ public class RegisterActivity extends AppCompatActivity {
 
             case 3:
                 RegisterController user = new RegisterController(this);
-                user.addNewAccount(email.getText().toString().trim());
+                boolean request = user.addNewAccount(email.getText().toString().trim());
+
+                if(request){
+                    Intent login = new Intent(RegisterActivity.this,LoginActivity.class);
+                    startActivity(login);
+                }else{
+                    Toast.makeText(this,"Erro ao salvar no banco, tente novamente !",Toast.LENGTH_LONG).show();
+                }
+
                 break;
 
         }

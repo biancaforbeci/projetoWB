@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">projetoWB</string>
+     <array name="languages">
+         <item>Inglês</item>
+         <item>Português</item>
+     </array>
+
 </resources>
