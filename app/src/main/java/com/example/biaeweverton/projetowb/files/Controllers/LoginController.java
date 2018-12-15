@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 
 public class LoginController {
 
-    public int validation(String email, String password){
-        if(email.isEmpty() || password.isEmpty()){
+    public int validation(String email){
+        if(email.isEmpty()){
             return  1;
         }else if(isEmailValid(email) == false) {
             return 2;

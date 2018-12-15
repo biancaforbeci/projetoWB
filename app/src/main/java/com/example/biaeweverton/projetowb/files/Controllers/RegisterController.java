@@ -47,8 +47,16 @@ public class RegisterController {
         this.context = context;
     }
 
-    public void addNewAccount(Account email) {
-        this.db.collection("account").add(email).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+    public RegisterController(){
+
+    }
+
+    public void addNewAccount(String email) {
+        Account user = new Account();
+        user.email=email;
+
+
+        this.db.collection("account").add(user).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()) {
@@ -58,8 +66,8 @@ public class RegisterController {
         });
     }
 
-    public int verification(String email, String password, String numberTyped,String phoneVerificationID) {
-        if ( password.length() > 8) {
+    public int verification(String email, String numberTyped,String phoneVerificationID) {
+        if (LoginController.isEmailValid(email) == false){
             return 1;
         } else {
             return 3;
