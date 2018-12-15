@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/bootstrapButton2"
+        android:id="@+id/btnHard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -30,12 +30,12 @@
         app:bootstrapSize="lg"
         app:bootstrapText="Bom"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bootstrapButton"
-        app:layout_constraintStart_toEndOf="@+id/bootstrapButton2"
+        app:layout_constraintEnd_toStartOf="@+id/btnEasy"
+        app:layout_constraintStart_toEndOf="@+id/btnHard"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/bootstrapButton"
+        android:id="@+id/btnEasy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

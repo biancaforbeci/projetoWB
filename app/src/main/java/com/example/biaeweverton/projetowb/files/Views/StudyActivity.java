@@ -24,6 +24,7 @@ public class StudyActivity extends AppCompatActivity {
     private TextView tvFront;
     private ArrayList<Card> listCards;
     private int currentCard = 0;
+    private int originSize = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +41,13 @@ public class StudyActivity extends AppCompatActivity {
             @Override
             public void onCompleteLoading(ArrayList<Card> listCard) {
                 listCards = listCard;
+                originSize = listCard.size();
                 tvFront.setText(listCards.get(currentCard).getFront());
+            }
+
+            @Override
+            public void onUpdateComplete(boolean b) {
+
             }
         });
 
@@ -51,6 +58,8 @@ public class StudyActivity extends AppCompatActivity {
 
         final View viewShowRating = View.inflate(this,R.layout.fbutton_showrating, null);
         BootstrapButton btnGood = viewShowRating.findViewById(R.id.btnGood);
+        BootstrapButton btnHard = viewShowRating.findViewById(R.id.btnHard);
+        BootstrapButton btnEasy = viewShowRating.findViewById(R.id.btnEasy);
 
         frameLayout.addView(viewShowBack);
 
@@ -69,9 +78,39 @@ public class StudyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(currentCard == (listCards.size() - 1)){
+                    listCards.get(currentCard).setDay(3);
                     Toast.makeText(StudyActivity.this, "Opa não tem mais", Toast.LENGTH_SHORT).show();
+                    save();
                     return;
                 }
+                listCards.get(currentCard).setDay(3);
+                nextCard();
+                frameLayout.removeView(viewShowRating);
+                frameLayout.addView(viewShowBack);
+            }
+        });
+
+        btnHard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentCard < listCards.size()) listCards.get(currentCard).setDay(1);
+                listCards.add(listCards.get(currentCard));
+                nextCard();
+                frameLayout.removeView(viewShowRating);
+                frameLayout.addView(viewShowBack);
+            }
+        });
+
+        btnEasy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentCard == (listCards.size() - 1)){
+                    listCards.get(currentCard).setDay(6);
+                    Toast.makeText(StudyActivity.this, "Opa não tem mais", Toast.LENGTH_SHORT).show();
+                    save();
+                    return;
+                }
+                listCards.get(currentCard).setDay(6);
                 nextCard();
                 frameLayout.removeView(viewShowRating);
                 frameLayout.addView(viewShowBack);
@@ -84,5 +123,20 @@ public class StudyActivity extends AppCompatActivity {
         this.currentCard++;
         tvFront.setText(listCards.get(currentCard).getFront());
         tvBack.setText("");
+    }
+
+    public void save(){
+        StudyController studyController = new StudyController(this);
+        studyController.updateDayCard(this.listCards, new StudyControllerInterface() {
+            @Override
+            public void onCompleteLoading(ArrayList<Card> listCard) {
+
+            }
+
+            @Override
+            public void onUpdateComplete(boolean b) {
+                Toast.makeText(StudyActivity.this, "Show foi salvo", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

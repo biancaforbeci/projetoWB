@@ -33,10 +33,27 @@ public class StudyController {
 
                     for(DocumentSnapshot item : task.getResult()){
                         Card card = item.toObject(Card.class);
+                        if(card != null) card.setId(item.getId());
                         listCard.add(card);
                     }
 
                     studyControllerInterface.onCompleteLoading(listCard);
+                }
+            }
+        });
+    }
+
+    public void updateDayCard(final ArrayList<Card> list, final StudyControllerInterface studyControllerInterface){
+        if(list.size() == 0){
+            studyControllerInterface.onUpdateComplete(true);
+            return;
+        }
+        this.db.collection("card").document(list.get(0).getId()).set(list.get(0)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    list.remove(list.get(0));
+                    updateDayCard(list, studyControllerInterface);
                 }
             }
         });

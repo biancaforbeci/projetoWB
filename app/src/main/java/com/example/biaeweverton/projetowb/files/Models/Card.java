@@ -1,10 +1,12 @@
 package com.example.biaeweverton.projetowb.files.Models;
 
 public class Card {
+    private String id;
     private String idDeck;
     private String front;
     private String back;
     private int day;
+    private boolean repeat;
 
     public String getIdDeck() {
         return idDeck;
@@ -36,5 +38,21 @@ public class Card {
 
     public void setDay(int day) {
         this.day = day;
+    }
+
+    public void setRepeat(boolean b) {
+        this.repeat = b;
+    }
+
+    public boolean getRepeat(){
+        return this.repeat;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 }
