@@ -73,7 +73,7 @@ public class RegisterController {
 
         if (LoginController.isEmailValid(email) == false){
             return 1;
-        }else if(emailExist.isEmailExist(email) == true)
+        }else if(emailExist.isEmailExist(email.trim()))
             return 2;
         else {
             return 3;

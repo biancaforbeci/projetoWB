@@ -1,8 +1,11 @@
 <resources>
-    <string name="app_name">projetoWB</string>
+    <string name="app_name">Easy Learn</string>
      <array name="languages">
          <item>Inglês</item>
-         <item>Português</item>
+         <item>Espanhol</item>
+         <item>Russo</item>
+         <item>Francês</item>
+         <item>Japonês</item>
+         <item>Árabe</item>
      </array>
-
 </resources>

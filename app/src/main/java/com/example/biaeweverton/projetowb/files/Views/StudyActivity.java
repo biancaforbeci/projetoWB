@@ -28,13 +28,13 @@ public class StudyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_study);
+        //setContentView(R.layout.activity_study);
 
         //Initialize Vars
-        this.frameLayout = findViewById(R.id.fButtons);
-        this.tvBack = findViewById(R.id.tvBack);
-        this.tvFront = findViewById(R.id.tvFront);
-        this.idDeck = getIntent().getStringExtra("idDeck");
+        //this.frameLayout = findViewById(R.id.fButtons);
+        //this.tvBack = findViewById(R.id.tvBack);
+        //this.tvFront = findViewById(R.id.tvFront);
+        //this.idDeck = getIntent().getStringExtra("idDeck");
 
         StudyController studyController = new StudyController(this);
         studyController.getAllCards(this.idDeck, new StudyControllerInterface() {

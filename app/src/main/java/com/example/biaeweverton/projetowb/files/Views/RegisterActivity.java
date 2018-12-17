@@ -61,11 +61,12 @@ public class RegisterActivity extends AppCompatActivity {
     public void saveAccount(View view){
 
         switch (registerController.verification(email.getText().toString().trim(),number.getText().toString(),phoneVerificationID)){
+
             case 1:
 
                 AlertDialog builder= new AlertDialog.Builder(this)
                         .setTitle("Erro")
-                        .setMessage("Verifique se foi digitado um email válido.")
+                        .setMessage("Email em branco.")
                         .setNeutralButton("OK",null)
                         .show();
 
@@ -75,13 +76,23 @@ public class RegisterActivity extends AppCompatActivity {
 
                 AlertDialog builder1= new AlertDialog.Builder(this)
                         .setTitle("Erro")
-                        .setMessage("Esse email já está cadastrado !")
+                        .setMessage("Verifique se foi digitado um email válido.")
                         .setNeutralButton("OK",null)
                         .show();
 
                 break;
 
             case 3:
+
+                AlertDialog builder2= new AlertDialog.Builder(this)
+                        .setTitle("Erro")
+                        .setMessage("Esse email já está cadastrado !")
+                        .setNeutralButton("OK",null)
+                        .show();
+
+                break;
+
+            case 4:
                 RegisterController user = new RegisterController(this);
                 boolean request = user.addNewAccount(email.getText().toString().trim());
 

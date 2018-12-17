@@ -31,7 +31,7 @@ public class LoginController {
             return  1;
         }else if(isEmailValid(email) == false) {
             return 2;
-        }else if(isEmailExist(email) == false){
+        }else if(isEmailExist(email.trim())){
             return 3;
         }else{
             return 4;
