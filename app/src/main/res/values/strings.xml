@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">Easy Learn</string>
-     <array name="languages">
-         <item>Inglês</item>
-         <item>Espanhol</item>
-         <item>Russo</item>
-         <item>Francês</item>
-         <item>Japonês</item>
-         <item>Árabe</item>
-     </array>
+    <array name="languages">
+        <item>Inglês</item>
+        <item>Espanhol</item>
+        <item>Russo</item>
+        <item>Francês</item>
+        <item>Japonês</item>
+        <item>Árabe</item>
+    </array>
+    <string name="title_activity_edit_card">EditCardActivity</string>
 </resources>
