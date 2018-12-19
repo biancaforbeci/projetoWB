@@ -30,7 +30,7 @@
             android:parentActivityName=".files.Views.MainActivity" />
         <activity android:name=".files.Views.TranslateActivity" />
         <activity
-            android:name=".EditCardActivity"
+            android:name=".files.Views.EditCardActivity"
             android:label="@string/title_activity_edit_card"></activity>
     </application>
 

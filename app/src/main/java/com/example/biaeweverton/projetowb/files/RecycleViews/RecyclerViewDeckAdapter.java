@@ -19,6 +19,7 @@ import com.example.biaeweverton.projetowb.files.Controllers.MainController;
 import com.example.biaeweverton.projetowb.files.Models.Card;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
 import com.example.biaeweverton.projetowb.files.Models.MainControllerInterface;
+import com.example.biaeweverton.projetowb.files.Views.EditCardActivity;
 import com.example.biaeweverton.projetowb.files.Views.StudyActivity;
 
 import java.util.ArrayList;
@@ -165,6 +166,15 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
             public void onLoadQuantityDataToStudy(int quantity) {
                 String tvStudy = "Estudar hoje: " + quantity;
                 view.tvStudyToday.setText(tvStudy);
+            }
+        });
+
+        view.btnEditCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EditCardActivity.class);
+                intent.putExtra("idDeck", deckList.get(i).id);
+                context.startActivity(intent);
             }
         });
     }
