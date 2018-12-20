@@ -39,6 +39,11 @@ public class EditCardActivity extends Activity {
             public void onComplete(ArrayList<Card> listCard) {
                 rvListCard.setAdapter(new RecyclerViewListCardAdapter(context, listCard));
             }
+
+            @Override
+            public void onCompleteUpdate(Boolean b) {
+
+            }
         });
     }
 

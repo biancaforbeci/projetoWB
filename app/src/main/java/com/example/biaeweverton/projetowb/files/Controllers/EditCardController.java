@@ -2,6 +2,7 @@ package com.example.biaeweverton.projetowb.files.Controllers;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.example.biaeweverton.projetowb.files.Models.Card;
 import com.example.biaeweverton.projetowb.files.Models.EditCardInterface;
@@ -32,6 +33,18 @@ public class EditCardController {
                         listCard.add(docs.toObject(Card.class));
                     }
                     editCardInterface.onComplete(listCard);
+                }
+            }
+        });
+    }
+
+    public void updateCard(Card card, final EditCardInterface editCardInterface){
+        this.db.collection("card").document(card.getId()).set(card).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    editCardInterface.onCompleteUpdate(true);
+                }else{
                 }
             }
         });

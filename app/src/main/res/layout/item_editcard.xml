@@ -58,6 +58,7 @@
     </android.support.v7.widget.CardView>
 
     <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/btnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -69,6 +70,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
     <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
