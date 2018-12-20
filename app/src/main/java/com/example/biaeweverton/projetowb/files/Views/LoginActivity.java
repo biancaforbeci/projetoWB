@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        //startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 
     public void login(View view) {
@@ -67,6 +67,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public void register(View view) {
         Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    public void translatePage(View view) {
+        Intent intent = new Intent(LoginActivity.this,TranslateActivity.class);
         startActivity(intent);
     }
 }
