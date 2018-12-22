@@ -84,6 +84,13 @@
             android:text="Registrar"
             tools:ignore="OnClick" />
 
+        <Button
+            android:id="@+id/btnPageTranslate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="translatePage"
+            android:text="Tela de Tradução" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

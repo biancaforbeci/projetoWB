@@ -6,89 +6,83 @@
     android:layout_height="match_parent"
     tools:context="com.example.biaeweverton.projetowb.files.Views.TranslateActivity">
 
-    <LinearLayout
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/traducao" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Tradução "
-            android:textColor="@color/bootstrap_brand_primary"
-            android:textSize="40dp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="43dp" />
-
-        <EditText
-            android:id="@+id/txtTyped"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Digite o texto que deseja traduzir"
-            android:inputType="textPersonName"
-            android:text="" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="43dp" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Escolha a linguagem "
-            android:textColor="@color/bootstrap_brand_secondary_text"
-            android:textSize="15dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context="com.ibm.watson.developer_cloud.android.myapplication.MainActivity">
 
         <Spinner
             android:id="@+id/spinner"
+            android:entries="@array/languages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Space
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="43dp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/inputText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
         <Button
-            android:id="@+id/btnTranslate"
+            android:id="@+id/translate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="translate"
-            tools:text="Traduzir" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="43dp" />
-
-        <EditText
-            android:id="@+id/translation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="43dp" />
+            android:enabled="false"
+            android:text="Traduzir" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btnClean"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="speak"
-            android:text="Falar" />
+            android:onClick="clean"
+            android:text="Limpar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/translated"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:hint="Tradução"
+                android:textColor="@color/bootstrap_brand_primary"
+                android:textSize="20dp"
+                android:inputType="textMultiLine" />
+        </LinearLayout>
 
     </LinearLayout>
+
+ </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

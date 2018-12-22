@@ -5,8 +5,7 @@
         <item>Espanhol</item>
         <item>Russo</item>
         <item>Francês</item>
-        <item>Japonês</item>
-        <item>Árabe</item>
+        <item>Italiano</item>
     </array>
     <string name="title_activity_edit_card">EditCardActivity</string>
 </resources>
