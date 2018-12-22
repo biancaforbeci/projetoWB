@@ -15,6 +15,8 @@ import com.ibm.watson.developer_cloud.language_translator.v3.LanguageTranslator;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslateOptions;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslationResult;
 import com.ibm.watson.developer_cloud.language_translator.v3.util.Language;
+import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Model;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetModelOptions;
 
 
 public class TranslateActivity extends AppCompatActivity {

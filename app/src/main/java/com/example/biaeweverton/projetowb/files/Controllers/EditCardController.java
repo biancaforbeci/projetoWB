@@ -34,7 +34,11 @@ public class EditCardController {
                 if(queryDocumentSnapshots != null) {
                     ArrayList<Card> listCard = new ArrayList<>();
                     for(DocumentSnapshot docs : queryDocumentSnapshots){
-                        listCard.add(docs.toObject(Card.class));
+                        Card card = docs.toObject(Card.class);
+                        if(card != null) {
+                            card.setId(docs.getId());
+                            listCard.add(card);
+                        }
                     }
                     editCardInterface.onComplete(listCard);
                 }
