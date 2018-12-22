@@ -1,5 +1,8 @@
 package com.example.biaeweverton.projetowb.files.Views;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +13,7 @@ import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.biaeweverton.projetowb.R;
+import com.example.biaeweverton.projetowb.files.Controllers.MainController;
 import com.example.biaeweverton.projetowb.files.Controllers.StudyController;
 import com.example.biaeweverton.projetowb.files.Models.Card;
 import com.example.biaeweverton.projetowb.files.Models.StudyControllerInterface;
@@ -25,16 +29,19 @@ public class StudyActivity extends AppCompatActivity {
     private ArrayList<Card> listCards;
     private int currentCard = 0;
     private int originSize = 0;
+    private int[] clicks = new int[3];
+    private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_study);
+        setContentView(R.layout.activity_study);
 
         //Initialize Vars
-        //this.frameLayout = findViewById(R.id.fButtons);
-        //this.tvBack = findViewById(R.id.tvBack);
-        //this.tvFront = findViewById(R.id.tvFront);
-        //this.idDeck = getIntent().getStringExtra("idDeck");
+        this.frameLayout = findViewById(R.id.fButtons);
+        this.tvBack = findViewById(R.id.tvBack);
+        this.tvFront = findViewById(R.id.tvFront);
+        this.idDeck = getIntent().getStringExtra("idDeck");
+        this.context = this;
 
         StudyController studyController = new StudyController(this);
         studyController.getAllCards(this.idDeck, new StudyControllerInterface() {
@@ -77,6 +84,7 @@ public class StudyActivity extends AppCompatActivity {
         btnGood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clicks[1]++;
                 if(currentCard == (listCards.size() - 1)){
                     listCards.get(currentCard).setDay(3);
                     Toast.makeText(StudyActivity.this, "Opa não tem mais", Toast.LENGTH_SHORT).show();
@@ -93,6 +101,7 @@ public class StudyActivity extends AppCompatActivity {
         btnHard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clicks[2]++;
                 if(currentCard < listCards.size()) listCards.get(currentCard).setDay(1);
                 listCards.add(listCards.get(currentCard));
                 nextCard();
@@ -104,6 +113,7 @@ public class StudyActivity extends AppCompatActivity {
         btnEasy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clicks[0]++;
                 if(currentCard == (listCards.size() - 1)){
                     listCards.get(currentCard).setDay(6);
                     Toast.makeText(StudyActivity.this, "Opa não tem mais", Toast.LENGTH_SHORT).show();
@@ -126,7 +136,7 @@ public class StudyActivity extends AppCompatActivity {
     }
 
     public void save(){
-        StudyController studyController = new StudyController(this);
+        final StudyController studyController = new StudyController(this);
         studyController.updateDayCard(this.listCards, new StudyControllerInterface() {
             @Override
             public void onCompleteLoading(ArrayList<Card> listCard) {
@@ -136,6 +146,34 @@ public class StudyActivity extends AppCompatActivity {
             @Override
             public void onUpdateComplete(boolean b) {
                 Toast.makeText(StudyActivity.this, "Show foi salvo", Toast.LENGTH_SHORT).show();
+                final AlertDialog alert = new AlertDialog.Builder(context).create();
+
+                View view = View.inflate(context, R.layout.dialog_infostudy, null);
+
+                TextView tvClickHard = view.findViewById(R.id.tvClickHard);
+                TextView tvClickGood = view.findViewById(R.id.tvClickGood);
+                TextView tvClickEasy = view.findViewById(R.id.tvClickEasy);
+
+                //Arrumar isso dps
+                tvClickEasy.setText("Click's " + clicks[0]);
+                tvClickGood.setText("Click's " + clicks[1]);
+                tvClickHard.setText("Click's " + clicks[2]);
+
+                alert.setView(view);
+
+                alert.setCancelable(false);
+
+                BootstrapButton btnOk = view.findViewById(R.id.btnOk);
+
+                btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alert.cancel();
+                        finish();
+                    }
+                });
+
+                alert.show();
             }
         });
     }
