@@ -48,8 +48,8 @@ public class RecyclerViewListCardAdapter extends RecyclerView.Adapter {
 
                 BootstrapButton btnAddItem = view.findViewById(R.id.btnAddItem);
                 BootstrapButton btnCancel = view.findViewById(R.id.btnCancel);
-                TextView edFront = view.findViewById(R.id.edPhrase);
-                TextView edBack = view.findViewById(R.id.edTranslate);
+                final TextView edFront = view.findViewById(R.id.edPhrase);
+                final TextView edBack = view.findViewById(R.id.edTranslate);
 
                 edBack.setText(listCard.get(i).getBack());
                 edFront.setText(listCard.get(i).getFront());
@@ -63,7 +63,8 @@ public class RecyclerViewListCardAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         EditCardController editCardController = new EditCardController(context);
-
+                        listCard.get(i).setBack(edBack.getText().toString());
+                        listCard.get(i).setFront(edFront.getText().toString());
                         editCardController.updateCard(listCard.get(i), new EditCardInterface() {
                             @Override
                             public void onComplete(ArrayList<Card> listCard) {
@@ -85,6 +86,26 @@ public class RecyclerViewListCardAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         alertDialog.cancel();
+                    }
+                });
+            }
+        });
+        view.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditCardController editCardController = new EditCardController(context);
+                editCardController.deleteCard(listCard.get(i), new EditCardInterface() {
+                    @Override
+                    public void onComplete(ArrayList<Card> listCard) {
+
+                    }
+
+                    //Using same method
+                    @Override
+                    public void onCompleteUpdate(Boolean b) {
+                        if(b){
+                            Toast.makeText(context, "Apagado com sucesso!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
