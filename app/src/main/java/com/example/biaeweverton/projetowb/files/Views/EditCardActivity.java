@@ -3,6 +3,7 @@ package com.example.biaeweverton.projetowb.files.Views;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -30,12 +31,18 @@ public class EditCardActivity extends Activity {
 
         //RecycleConfig
         rvListCard.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rvListCard.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
 
         EditCardController editCardController = new EditCardController(this);
         editCardController.getListCard(idDeck, new EditCardInterface() {
             @Override
             public void onComplete(ArrayList<Card> listCard) {
                 rvListCard.setAdapter(new RecyclerViewListCardAdapter(context, listCard));
+            }
+
+            @Override
+            public void onCompleteUpdate(Boolean b) {
+
             }
         });
     }
