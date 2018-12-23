@@ -23,7 +23,6 @@ public class TranslateActivity extends AppCompatActivity {
     private TextView input;
     private Button translate;
     private Button clean;
-    private Spinner spinner;
     private TextView translatedText;
     private LanguageTranslator translationService;
     private String selectedTargetLanguage = Language.ENGLISH;
@@ -36,7 +35,6 @@ public class TranslateActivity extends AppCompatActivity {
         input = findViewById(R.id.inputText);
         translate = findViewById(R.id.translate);
         translatedText = findViewById(R.id.translated);
-        spinner = findViewById(R.id.spinner);
         clean= findViewById(R.id.btnClean);
 
         input.addTextChangedListener(new EmptyTextWatcher() {
@@ -56,32 +54,9 @@ public class TranslateActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                int posicao = spinner.getSelectedItemPosition();
-                languague(posicao);
                 new TranslationTask().execute(input.getText().toString());
             }
         });
-    }
-
-    private void languague(int position){
-
-        switch (position){
-            case 0:
-                selectedTargetLanguage=Language.ENGLISH;
-                break;
-            case 1:
-                selectedTargetLanguage=Language.SPANISH;
-                break;
-            case 3:
-                selectedTargetLanguage=Language.RUSSIAN;
-                break;
-            case 4:
-                selectedTargetLanguage=Language.FRENCH;
-                break;
-            case 5:
-                selectedTargetLanguage=Language.ITALIAN;
-                break;
-        }
     }
 
 
