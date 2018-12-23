@@ -3,6 +3,7 @@ package com.example.biaeweverton.projetowb.files.Views;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +16,7 @@ import com.example.biaeweverton.projetowb.files.RecycleViews.RecyclerViewListCar
 
 import java.util.ArrayList;
 
-public class EditCardActivity extends Activity {
+public class EditCardActivity extends AppCompatActivity {
 
     private RecyclerView rvListCard;
     private Context context;
