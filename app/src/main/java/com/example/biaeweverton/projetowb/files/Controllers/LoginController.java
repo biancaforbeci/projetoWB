@@ -1,11 +1,26 @@
 package com.example.biaeweverton.projetowb.files.Controllers;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.widget.Toast;
+
 import com.example.biaeweverton.projetowb.files.Models.Deck;
 import com.example.biaeweverton.projetowb.files.RecycleViews.RecyclerViewDeckAdapter;
+import com.example.biaeweverton.projetowb.files.Views.LoginActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.ibm.watson.developer_cloud.personality_insights.v3.model.Content;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -20,8 +35,10 @@ import javax.annotation.Nullable;
 public class LoginController {
     private FirebaseFirestore db;
     private boolean request;
+    private FirebaseAuth auth;
 
     public LoginController(){
+        this.auth = FirebaseAuth.getInstance();
         this.db=FirebaseFirestore.getInstance();
     }
 
