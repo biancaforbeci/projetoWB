@@ -131,6 +131,11 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
                             public void onLoadQuantityDataToStudy(int quantity) {
 
                             }
+
+                            @Override
+                            public void onLoadingDeck(ArrayList<Deck> listDeck) {
+
+                            }
                         });
                     }
                 });
@@ -166,6 +171,11 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
             public void onLoadQuantityDataToStudy(int quantity) {
                 String tvStudy = "Estudar hoje: " + quantity;
                 view.tvStudyToday.setText(tvStudy);
+            }
+
+            @Override
+            public void onLoadingDeck(ArrayList<Deck> listDeck) {
+
             }
         });
 

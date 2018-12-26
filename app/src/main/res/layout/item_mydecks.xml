@@ -3,91 +3,146 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="200dp">
 
-    <TextView
-        android:id="@+id/tvNameDeck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Nome do Deck"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvStudyToday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Estudar hoje 000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNameDeck" />
-
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/btnStudyNow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:bootstrapBrand="success"
-        app:bootstrapText="Estudar agora!"
-        app:layout_constraintBottom_toBottomOf="@+id/tvStudyToday"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvNameDeck"
-        app:roundedCorners="true" />
-
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/btnDeleteDeck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:bootstrapBrand="danger"
-        app:bootstrapSize="sm"
-        app:bootstrapText="Apagar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnStudyNow"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/btnEditDeck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:bootstrapBrand="regular"
-        app:bootstrapSize="sm"
-        app:bootstrapText="Editar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnDeleteDeck"
-        app:roundedCorners="true" />
-
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/btnAddItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        app:bootstrapBrand="success"
-        app:bootstrapSize="sm"
-        app:bootstrapText="Adicionar Card"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:roundedCorners="true" />
-
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/btnEditCard"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:bootstrapSize="sm"
-        app:bootstrapText="Editar Card's"
+        app:cardCornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnAddItem" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvNameDeck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Nome do Deck"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvStudyToday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Estudar hoje 000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNameDeck" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnEditDeck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="8dp"
+                app:bootstrapBrand="regular"
+                app:bootstrapSize="sm"
+                app:bootstrapText="Editar"
+                app:layout_constraintBottom_toTopOf="@+id/divider3"
+                app:layout_constraintEnd_toStartOf="@+id/btnDeleteDeck"
+                app:roundedCorners="true" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnDeleteDeck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="8dp"
+                app:bootstrapBrand="danger"
+                app:bootstrapSize="sm"
+                app:bootstrapText="Apagar"
+                app:layout_constraintBottom_toTopOf="@+id/divider3"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnStudyNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                app:bootstrapBrand="success"
+                app:bootstrapText="Estudar agora!"
+                app:layout_constraintBottom_toTopOf="@+id/btnDeleteDeck"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:roundedCorners="true" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnEditCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                app:bootstrapBrand="danger"
+                app:bootstrapSize="lg"
+                app:bootstrapText="-"
+                app:layout_constraintBottom_toBottomOf="@+id/btnAddItem"
+                app:layout_constraintStart_toEndOf="@+id/btnAddItem"
+                app:layout_constraintTop_toTopOf="@+id/btnAddItem"
+                app:roundedCorners="true" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="52dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btnAddItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:bootstrapBrand="success"
+                app:bootstrapSize="lg"
+                app:bootstrapText="+"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider3"
+                app:roundedCorners="true" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="1dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="0dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnEditCard"
+                app:layout_constraintStart_toEndOf="@+id/btnAddItem" />
+
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="1dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="0dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnEditCard" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

@@ -38,7 +38,7 @@ public class MainController {
     * @param idUser -> Find in the database with this id
     * @return void
      */
-    public void getDeckList(final Context context, final RecyclerView rvDeck, String idUser){
+    public void getDeckList(final Context context, String idUser, final MainControllerInterface mainControllerInterface){
         this.db.collection("deck").whereEqualTo("idUser", idUser).addSnapshotListener(new com.google.firebase.firestore.EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -49,7 +49,7 @@ public class MainController {
                         deck.id = doc.getId();
                         deckList.add(deck);
                     }
-                    rvDeck.setAdapter(new RecyclerViewDeckAdapter(context, deckList));
+                    mainControllerInterface.onLoadingDeck(deckList);
                 }
             }
         });

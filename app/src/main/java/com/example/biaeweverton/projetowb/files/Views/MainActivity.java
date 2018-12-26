@@ -9,6 +9,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
@@ -17,6 +19,9 @@ import com.example.biaeweverton.projetowb.R;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
 import com.example.biaeweverton.projetowb.files.Controllers.MainController;
 import com.example.biaeweverton.projetowb.files.Models.MainControllerInterface;
+import com.example.biaeweverton.projetowb.files.RecycleViews.RecyclerViewDeckAdapter;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvDeck;
     private Context context;
     private MainController mainController;
+    private ImageView imNewDeck;
+    private TextView tvTitle;
+    private TextView tvMsgNewCard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         //Initialized Elements
         rvDeck = findViewById(R.id.rvDecks);
         context = this;
+        imNewDeck = findViewById(R.id.imNewDeck);
+        tvTitle = findViewById(R.id.tvTitle);
+        tvMsgNewCard = findViewById(R.id.tvMsgNewCard);
 
         //RecycleView Config
         rvDeck.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
@@ -41,7 +52,33 @@ public class MainActivity extends AppCompatActivity {
         mainController = new MainController(context);
 
         //Method to get DeckList
-        mainController.getDeckList(context,rvDeck, "Ry0QC6OMFMxYtU5Ui5jM");
+        mainController.getDeckList(context,"Ry0QC6OMFMxYtU5Ui5jM", new MainControllerInterface() {
+            @Override
+            public void onCompleteSave(Boolean res) {
+
+            }
+
+            @Override
+            public void onLoadQuantityDataToStudy(int quantity) {
+
+            }
+
+            @Override
+            public void onLoadingDeck(ArrayList<Deck> listDeck) {
+                if(listDeck.size() == 0){
+                    imNewDeck.setVisibility(View.VISIBLE);
+                    tvMsgNewCard.setVisibility(View.VISIBLE);
+                    tvTitle.setVisibility(View.INVISIBLE);
+                    rvDeck.setVisibility(View.INVISIBLE);
+                }else{
+                    imNewDeck.setVisibility(View.INVISIBLE);
+                    tvTitle.setVisibility(View.VISIBLE);
+                    rvDeck.setVisibility(View.VISIBLE);
+                    tvMsgNewCard.setVisibility(View.INVISIBLE);
+                    rvDeck.setAdapter(new RecyclerViewDeckAdapter(context, listDeck));
+                }
+            }
+        });
 
     }
 
@@ -85,6 +122,11 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onLoadQuantityDataToStudy(int quantity) {
+
+                    }
+
+                    @Override
+                    public void onLoadingDeck(ArrayList<Deck> listDeck) {
 
                     }
                 });
