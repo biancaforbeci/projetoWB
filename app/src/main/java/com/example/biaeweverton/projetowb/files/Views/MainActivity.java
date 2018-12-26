@@ -16,10 +16,13 @@ import android.widget.Toast;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.biaeweverton.projetowb.R;
+import com.example.biaeweverton.projetowb.files.Models.Account;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
 import com.example.biaeweverton.projetowb.files.Controllers.MainController;
 import com.example.biaeweverton.projetowb.files.Models.MainControllerInterface;
 import com.example.biaeweverton.projetowb.files.RecycleViews.RecyclerViewDeckAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         mainController = new MainController(context);
 
         //Method to get DeckList
-        mainController.getDeckList(context,"Ry0QC6OMFMxYtU5Ui5jM", new MainControllerInterface() {
+        mainController.getDeckList(context,Account.userId, new MainControllerInterface() {
             @Override
             public void onCompleteSave(Boolean res) {
 
@@ -111,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 Deck deck = new Deck();
-                deck.idUser = "Ry0QC6OMFMxYtU5Ui5jM";
+                deck.idUser = Account.userId;
                 deck.name = edNameDeck.getText().toString();
                 mainController.addNewDeck(deck, new MainControllerInterface() {
                     @Override

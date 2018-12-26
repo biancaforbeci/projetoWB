@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.biaeweverton.projetowb.R;
 import com.example.biaeweverton.projetowb.files.Controllers.LoginController;
 import com.example.biaeweverton.projetowb.files.Controllers.MainController;
+import com.example.biaeweverton.projetowb.files.Models.Account;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -44,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        //startActivity(new Intent(LoginActivity.this, MainActivity.class));
         auth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -148,6 +149,9 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = auth.getCurrentUser();
 
+                            if(user == null) return;
+                            Account.userId = user.getUid();
+                            
                             Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                             startActivity(i);
                             finish();
