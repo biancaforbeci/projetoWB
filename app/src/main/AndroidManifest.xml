@@ -15,8 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".files.Views.LoginActivity">
+        <activity android:name=".files.Views.SplashScreenActivity"
+            android:theme="@style/AppCompat.TelaCheia">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,6 +32,7 @@
         <activity
             android:name=".files.Views.EditCardActivity"
             android:parentActivityName=".files.Views.MainActivity" />
+        <activity android:name=".files.Views.LoginActivity"></activity>
     </application>
 
 </manifest>

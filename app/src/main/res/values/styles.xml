@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="AppCompat.TelaCheia" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+
 </resources>
