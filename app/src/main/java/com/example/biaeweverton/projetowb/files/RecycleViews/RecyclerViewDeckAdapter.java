@@ -113,7 +113,7 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
                         card.setFront(edPharse.getText().toString());
                         card.setBack(edTranslate.getText().toString());
                         card.setIdDeck(deckList.get(i).id);
-                        card.setDay(2);
+                        card.setDay(1);
 
                         MainController mainController = new MainController(context);
                         mainController.addItemDeck(card, new MainControllerInterface() {
@@ -169,7 +169,14 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
 
             @Override
             public void onLoadQuantityDataToStudy(int quantity) {
-                String tvStudy = "Estudar hoje: " + quantity;
+                if(quantity == 0){
+                    view.btnEditCard.setEnabled(false);
+                    view.btnStudyNow.setEnabled(false);
+                }else{
+                    view.btnEditCard.setEnabled(true);
+                    view.btnStudyNow.setEnabled(true);
+                }
+                String tvStudy = "Estudar hoje: " + quantity + " Cards";
                 view.tvStudyToday.setText(tvStudy);
             }
 

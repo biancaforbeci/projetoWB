@@ -27,7 +27,7 @@ public class StudyController {
 
     public void getAllCards(String idDeck, final StudyControllerInterface studyControllerInterface){
         try{
-            this.db.collection("card").whereEqualTo("idDeck", idDeck).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            this.db.collection("card").whereEqualTo("idDeck", idDeck).whereEqualTo("day", 1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
@@ -66,6 +66,7 @@ public class StudyController {
                 }
             });
         }catch(Exception e){
+            studyControllerInterface.onUpdateComplete(false);
             LogController.shootError(this.db, new com.example.biaeweverton.projetowb.files.Models.Log("updateDayCard",new Date(), e.getMessage(), Account.userId));
         }
 

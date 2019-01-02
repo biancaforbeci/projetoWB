@@ -35,7 +35,7 @@ public class EditCardController {
 
     public void getListCard(String idDeck, final EditCardInterface editCardInterface){
         try{
-            this.db.collection("").whereEqualTo("idDeck", idDeck).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            this.db.collection("card").whereEqualTo("idDeck", idDeck).addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                     if(queryDocumentSnapshots != null) {

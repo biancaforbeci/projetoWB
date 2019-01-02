@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.biaeweverton.projetowb.R;
 import com.example.biaeweverton.projetowb.files.Controllers.EditCardController;
@@ -20,6 +22,7 @@ public class EditCardActivity extends AppCompatActivity {
 
     private RecyclerView rvListCard;
     private Context context;
+    private ProgressBar pbEditCard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,17 +31,18 @@ public class EditCardActivity extends AppCompatActivity {
         //Initialize
         rvListCard = findViewById(R.id.rvListCard);
         String idDeck = getIntent().getStringExtra("idDeck");
+        pbEditCard = findViewById(R.id.pbEditCard);
         context = this;
 
         //RecycleConfig
         rvListCard.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvListCard.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
 
         EditCardController editCardController = new EditCardController(this);
         editCardController.getListCard(idDeck, new EditCardInterface() {
             @Override
             public void onComplete(ArrayList<Card> listCard) {
                 rvListCard.setAdapter(new RecyclerViewListCardAdapter(context, listCard));
+                pbEditCard.setVisibility(View.INVISIBLE);
             }
 
             @Override

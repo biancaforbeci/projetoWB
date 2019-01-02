@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class StudyActivity extends AppCompatActivity {
     private int originSize = 0;
     private int[] clicks = new int[3];
     private Context context;
+    private ProgressBar pbStudy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,7 @@ public class StudyActivity extends AppCompatActivity {
         this.tvFront = findViewById(R.id.tvFront);
         this.idDeck = getIntent().getStringExtra("idDeck");
         this.context = this;
+        this.pbStudy = findViewById(R.id.pbStudy);
 
         StudyController studyController = new StudyController(this);
         studyController.getAllCards(this.idDeck, new StudyControllerInterface() {
@@ -87,7 +90,7 @@ public class StudyActivity extends AppCompatActivity {
                 clicks[1]++;
                 if(currentCard == (listCards.size() - 1)){
                     listCards.get(currentCard).setDay(3);
-                    Toast.makeText(StudyActivity.this, "Opa não tem mais", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StudyActivity.this, "Você terminou por hoje.", Toast.LENGTH_SHORT).show();
                     save();
                     return;
                 }
@@ -116,7 +119,7 @@ public class StudyActivity extends AppCompatActivity {
                 clicks[0]++;
                 if(currentCard == (listCards.size() - 1)){
                     listCards.get(currentCard).setDay(6);
-                    Toast.makeText(StudyActivity.this, "Opa não tem mais", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StudyActivity.this, "Você terminou por hoje.", Toast.LENGTH_SHORT).show();
                     save();
                     return;
                 }
@@ -137,6 +140,7 @@ public class StudyActivity extends AppCompatActivity {
 
     public void save(){
         final StudyController studyController = new StudyController(this);
+        pbStudy.setVisibility(View.VISIBLE);
         studyController.updateDayCard(this.listCards, new StudyControllerInterface() {
             @Override
             public void onCompleteLoading(ArrayList<Card> listCard) {
@@ -145,7 +149,13 @@ public class StudyActivity extends AppCompatActivity {
 
             @Override
             public void onUpdateComplete(boolean b) {
-                Toast.makeText(StudyActivity.this, "Show foi salvo", Toast.LENGTH_SHORT).show();
+                if(b == true){
+                    pbStudy.setVisibility(View.INVISIBLE);
+                    finish();
+                }else{
+                    Toast.makeText(context, "Ocorre um erro ao prosseguir.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
                 final AlertDialog alert = new AlertDialog.Builder(context).create();
 
                 View view = View.inflate(context, R.layout.dialog_infostudy, null);
@@ -155,7 +165,7 @@ public class StudyActivity extends AppCompatActivity {
                 TextView tvClickEasy = view.findViewById(R.id.tvClickEasy);
 
                 //Arrumar isso dps
-                tvClickEasy.setText("Click's " + clicks[0]);
+                tvClickEasy.setText("" + clicks[0]);
                 tvClickGood.setText("Click's " + clicks[1]);
                 tvClickHard.setText("Click's " + clicks[2]);
 
@@ -173,7 +183,7 @@ public class StudyActivity extends AppCompatActivity {
                     }
                 });
 
-                alert.show();
+                //alert.show();
             }
         });
     }

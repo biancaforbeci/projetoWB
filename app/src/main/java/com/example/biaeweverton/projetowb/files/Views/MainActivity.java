@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     private MainController mainController;
     private ImageView imNewDeck;
-    private TextView tvTitle;
     private TextView tvMsgNewCard;
+    private ProgressBar pbMainActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +48,10 @@ public class MainActivity extends AppCompatActivity {
         rvDeck = findViewById(R.id.rvDecks);
         context = this;
         imNewDeck = findViewById(R.id.imNewDeck);
-        tvTitle = findViewById(R.id.tvTitle);
         tvMsgNewCard = findViewById(R.id.tvMsgNewCard);
+        pbMainActivity = findViewById(R.id.pbMainActivity);
 
         //RecycleView Config
-        rvDeck.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
         rvDeck.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false));
 
         //Class to Control View
@@ -74,15 +74,14 @@ public class MainActivity extends AppCompatActivity {
                 if(listDeck.size() == 0){
                     imNewDeck.setVisibility(View.VISIBLE);
                     tvMsgNewCard.setVisibility(View.VISIBLE);
-                    tvTitle.setVisibility(View.INVISIBLE);
                     rvDeck.setVisibility(View.INVISIBLE);
                 }else{
                     imNewDeck.setVisibility(View.INVISIBLE);
-                    tvTitle.setVisibility(View.VISIBLE);
                     rvDeck.setVisibility(View.VISIBLE);
                     tvMsgNewCard.setVisibility(View.INVISIBLE);
                     rvDeck.setAdapter(new RecyclerViewDeckAdapter(context, listDeck));
                 }
+                pbMainActivity.setVisibility(View.INVISIBLE);
             }
         });
 

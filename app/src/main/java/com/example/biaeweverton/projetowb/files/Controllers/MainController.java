@@ -123,10 +123,10 @@ public class MainController {
 
     public void getQuantityDataToStudy(String idDeck, final MainControllerInterface mainControllerInterface){
         try{
-            this.db.collection("card").whereEqualTo("idDeck", idDeck).addSnapshotListener(new com.google.firebase.firestore.EventListener<QuerySnapshot>() {
+            this.db.collection("card").whereEqualTo("idDeck", idDeck).whereEqualTo("day", 1).addSnapshotListener(new com.google.firebase.firestore.EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                    if(queryDocumentSnapshots != null) mainControllerInterface.onLoadQuantityDataToStudy(queryDocumentSnapshots.size());
+                    if(queryDocumentSnapshots != null){ mainControllerInterface.onLoadQuantityDataToStudy(queryDocumentSnapshots.size()); } else { mainControllerInterface.onLoadQuantityDataToStudy(0);}
                 }
             });
         }catch(Exception e){
