@@ -49,45 +49,7 @@ public class RegisterController {
         this.context = context;
     }
 
-    public boolean addNewAccount(String email) {
-        saveDB=false;
-        Account user = new Account();
-        user.email=email;
-        try{
-            this.db.collection("account").add(user).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentReference> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(context, "Conta criada com sucesso !", Toast.LENGTH_SHORT).show();
-                        saveDB=true;
-                    }
-                }
-            });
-        }catch(Exception e){
-            LogController.shootError(this.db, new com.example.biaeweverton.projetowb.files.Models.Log("addNewAccount",new Date(), e.getMessage(), Account.userId));
-        }
-        return saveDB;
 
-    }
-
-    public int verification(String email, String numberTyped,String phoneVerificationID) {
-        LoginController emailExist = new LoginController();
-
-        if (LoginController.isEmailValid(email) == false){
-            return 1;
-        }else if(emailExist.isEmailExist(email.trim()))
-            return 2;
-        else {
-            return 3;
-        }
-    }
-
-    public PhoneAuthCredential validationPhone(String number,String phoneVerificationID) {
-
-       PhoneAuthCredential credential = PhoneAuthProvider.getCredential(phoneVerificationID,number);
-
-       return credential;
-    }
 
 
 

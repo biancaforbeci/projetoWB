@@ -24,6 +24,9 @@ import com.example.biaeweverton.projetowb.files.Models.Deck;
 import com.example.biaeweverton.projetowb.files.Controllers.MainController;
 import com.example.biaeweverton.projetowb.files.Models.MainControllerInterface;
 import com.example.biaeweverton.projetowb.files.RecycleViews.RecyclerViewDeckAdapter;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -31,18 +34,28 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth auth;
+    private GoogleSignInClient mGoogleSignInClient;
     private RecyclerView rvDeck;
     private Context context;
     private MainController mainController;
     private ImageView imNewDeck;
     private TextView tvMsgNewCard;
     private ProgressBar pbMainActivity;
+    private FirebaseAuth fbAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        auth = FirebaseAuth.getInstance();
+        fbAuth = FirebaseAuth.getInstance();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
 
         //Initialized Elements
         rvDeck = findViewById(R.id.rvDecks);
@@ -149,7 +162,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.logout:
-                auth.getInstance().signOut();
+                fbAuth.signOut();
+                mGoogleSignInClient.signOut();
                 Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(i);
                 break;

@@ -25,6 +25,7 @@ import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
@@ -50,62 +51,16 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        email=findViewById(R.id.emailUser);
         numberTyped=findViewById(R.id.phone);
-        number= findViewById(R.id.confirmPassword);
-        resendButton = findViewById(R.id.btnResend);
+        number= findViewById(R.id.confirmCode);
         registerController = new RegisterController(this);
-        //numberTyped.addTextChangedListener(MaskEditUtil.mask(numberTyped,MaskEditUtil.FORMAT_FONE));
+        fbAuth = FirebaseAuth.getInstance();
+
     }
 
     public void saveAccount(View view){
 
-        switch (registerController.verification(email.getText().toString().trim(),number.getText().toString(),phoneVerificationID)){
-
-            case 1:
-
-                AlertDialog builder= new AlertDialog.Builder(this)
-                        .setTitle("Erro")
-                        .setMessage("Email em branco.")
-                        .setNeutralButton("OK",null)
-                        .show();
-
-                break;
-
-            case 2:
-
-                AlertDialog builder1= new AlertDialog.Builder(this)
-                        .setTitle("Erro")
-                        .setMessage("Verifique se foi digitado um email válido.")
-                        .setNeutralButton("OK",null)
-                        .show();
-
-                break;
-
-            case 3:
-
-                AlertDialog builder2= new AlertDialog.Builder(this)
-                        .setTitle("Erro")
-                        .setMessage("Esse email já está cadastrado !")
-                        .setNeutralButton("OK",null)
-                        .show();
-
-                break;
-
-            case 4:
-                RegisterController user = new RegisterController(this);
-                boolean request = user.addNewAccount(email.getText().toString().trim());
-
-                if(request){
-                    Intent login = new Intent(RegisterActivity.this,LoginActivity.class);
-                    startActivity(login);
-                }else{
-                    Toast.makeText(this,"Erro ao salvar no banco, tente novamente !",Toast.LENGTH_LONG).show();
-                }
-
-                break;
-
-        }
+        verifyCode(number.getText().toString());
 
     }
 
@@ -115,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             try {
                 PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                        numberTyped.getText().toString(),
+                        "+55"+numberTyped.getText().toString(),
                         60,
                         TimeUnit.SECONDS,
                         this,
@@ -134,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
         verificationCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+                signInWithCredential(phoneAuthCredential);
                 Toast.makeText(RegisterActivity.this,"Enviado com sucesso",Toast.LENGTH_LONG).show();
             }
 
@@ -172,26 +128,32 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     public void signInWithCredential(PhoneAuthCredential credential){
-        fbAuth.signInWithCredential(credential)
+         fbAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "Sucesso");
-
                            SMSTyped=true;
+                            FirebaseUser user = task.getResult().getUser();
+                            Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(i);
 
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "Falha na autenticação !");
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                number.setError("Código inválido !.");
-
+                                number.setError("Código inválido !");
                             }
                         }
                     }
                 });
+    }
+
+    private void verifyCode(String code){
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(phoneVerificationID,code);
+        signInWithCredential(credential);
     }
 
 }
