@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.example.biaeweverton.projetowb.files.Models.Account;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
+import com.example.biaeweverton.projetowb.files.Models.Log;
 import com.example.biaeweverton.projetowb.files.RecycleViews.RecyclerViewDeckAdapter;
 import com.example.biaeweverton.projetowb.files.Views.LoginActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -23,6 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.Content;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -76,17 +79,22 @@ public class LoginController {
     }
 
     public boolean isEmailExist(String email){
-        this.db.collection("account").whereEqualTo("email", email).addSnapshotListener(new com.google.firebase.firestore.EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if(queryDocumentSnapshots != null){
-                    request=true;
-                }else{
-                    request= false;
+        try{
+            this.db.collection("account").whereEqualTo("email", email).addSnapshotListener(new com.google.firebase.firestore.EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                    if(queryDocumentSnapshots != null){
+                        request=true;
+                    }else{
+                        request= false;
+                    }
                 }
-            }
-        });
+            });
+            return request;
+        }catch(Exception e){
+            LogController.shootError(this.db, new Log("isEmailExist",new Date(), e.getMessage(), Account.userId));
+            return false;
+        }
 
-        return request;
     }
 }

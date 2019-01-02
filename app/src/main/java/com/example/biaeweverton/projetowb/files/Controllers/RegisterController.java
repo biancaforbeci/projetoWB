@@ -22,6 +22,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
@@ -52,18 +53,19 @@ public class RegisterController {
         saveDB=false;
         Account user = new Account();
         user.email=email;
-
-
-        this.db.collection("account").add(user).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(context, "Conta criada com sucesso !", Toast.LENGTH_SHORT).show();
-                    saveDB=true;
+        try{
+            this.db.collection("account").add(user).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentReference> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(context, "Conta criada com sucesso !", Toast.LENGTH_SHORT).show();
+                        saveDB=true;
+                    }
                 }
-            }
-        });
-
+            });
+        }catch(Exception e){
+            LogController.shootError(this.db, new com.example.biaeweverton.projetowb.files.Models.Log("addNewAccount",new Date(), e.getMessage(), Account.userId));
+        }
         return saveDB;
 
     }

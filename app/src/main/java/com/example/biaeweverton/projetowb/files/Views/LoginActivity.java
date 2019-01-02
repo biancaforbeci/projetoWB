@@ -45,9 +45,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         auth = FirebaseAuth.getInstance();
 
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -151,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             if(user == null) return;
                             Account.userId = user.getUid();
-                            
+
                             Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                             startActivity(i);
                             finish();
