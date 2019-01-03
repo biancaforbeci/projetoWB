@@ -8,4 +8,5 @@
         <item>Italiano</item>
     </array>
     <string name="title_activity_edit_card">EditCardActivity</string>
+    <string name="title_textview">Bem-Vindo</string>
 </resources>

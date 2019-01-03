@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.biaeweverton.projetowb.R;
 import com.example.biaeweverton.projetowb.files.Controllers.LoginController;
 import com.example.biaeweverton.projetowb.files.Controllers.MainController;
@@ -33,8 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import io.opencensus.tags.Tag;
 
 public class LoginActivity extends AppCompatActivity {
-
-    private EditText email;
+    
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth auth;
     private SignInButton signInButton;
@@ -46,6 +46,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         auth = FirebaseAuth.getInstance();
+        View v = View.inflate(getApplicationContext(), R.layout.activity_login, null);
+        BootstrapButton btnPhonePage = v.findViewById(R.id.btnRegister);
+        BootstrapButton btnTranslate = v.findViewById(R.id.btnPageTranslate);
+
 
         //startActivity(new Intent(LoginActivity.this, MainActivity.class));
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -68,55 +72,23 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-    }
+        btnPhonePage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),RegisterActivity.class);
+                startActivity(i);
+            }
+        });
 
-    public void login(View view) {
-        email = findViewById(R.id.email);
+        btnTranslate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),TranslateActivity.class);
+                startActivity(i);
+            }
+        });
 
-        switch (loginController.validation(email.getText().toString().trim())) {
-            case 1:
 
-                AlertDialog builder = new AlertDialog.Builder(this)
-                        .setTitle("Erro")
-                        .setMessage("Email em branco.")
-                        .setNeutralButton("OK", null)
-                        .show();
-
-                break;
-
-            case 2:
-
-                AlertDialog builder1 = new AlertDialog.Builder(this)
-                        .setTitle("Erro")
-                        .setMessage("Verifique se foi digitado um email válido.")
-                        .setNeutralButton("OK", null)
-                        .show();
-                break;
-
-            case 3:
-
-                AlertDialog builder2 = new AlertDialog.Builder(this)
-                        .setTitle("Erro")
-                        .setMessage("Esse email não está cadastrado, registre-se !")
-                        .setNeutralButton("OK", null)
-                        .show();
-                break;
-
-            case 4:
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                break;
-        }
-    }
-
-    public void register(View view) {
-        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-        startActivity(intent);
-    }
-
-    public void translatePage(View view) {
-        Intent intent = new Intent(LoginActivity.this, TranslateActivity.class);
-        startActivity(intent);
     }
 
     @Override
@@ -132,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-
+                Toast.makeText(getApplicationContext(),"Tente novamente, ocorreu um erro na autenticação !",Toast.LENGTH_LONG).show();
             }
         }
     }

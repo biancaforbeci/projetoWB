@@ -29,21 +29,6 @@
             android:layout_width="match_parent"
             android:layout_height="43dp" />
 
-        <com.beardedhen.androidbootstrap.AwesomeTextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Bem - Vindo "
-            android:textAlignment="center"
-            app:bootstrapBrand="info"
-            app:fontAwesomeIcon="fa_align_center"
-            android:textSize="50dp"
-            tools:layout_editor_absoluteX="62dp"
-            tools:layout_editor_absoluteY="373dp" />
-
-
-
-
         <com.google.android.gms.common.SignInButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,14 +43,12 @@
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="register"
             app:bootstrapBrand="regular"
             app:bootstrapSize="lg"
             app:buttonMode="regular"
             app:showOutline="false"
             app:roundedCorners="true"
-            android:text="Login com Telefone"
-            tools:ignore="OnClick" />
+            android:text="Login com Telefone" />
 
         <Space
             android:layout_width="match_parent"
@@ -75,7 +58,6 @@
             android:id="@+id/btnPageTranslate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="translatePage"
             app:bootstrapBrand="info"
             app:bootstrapSize="lg"
             app:buttonMode="regular"

@@ -19,11 +19,7 @@
             android:id="@+id/imageView4"
             android:layout_width="match_parent"
             android:layout_height="95dp"
-            app:srcCompat="@drawable/user" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            app:srcCompat="@drawable/autenticacao" />
 
 
         <Space
@@ -60,18 +56,40 @@
                 android:hint="Telefone"
                 />
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:onClick="sendSMS"
-                android:text="Enviar SMS" />
-
         </LinearLayout>
+
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btnSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:bootstrapBrand="regular"
+            app:bootstrapSize="lg"
+            app:buttonMode="regular"
+            app:showOutline="false"
+            app:roundedCorners="true"
+            android:text="Enviar" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="43dp" />
+            android:layout_height="5dp" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/resend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:bootstrapBrand="regular"
+            app:bootstrapSize="lg"
+            app:buttonMode="regular"
+            app:showOutline="false"
+            app:roundedCorners="true"
+            android:text="Tela de Tradução" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
 
 
         <LinearLayout
@@ -85,23 +103,26 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
+                android:inputType="number"
                 android:hint="Número enviado por SMS"
                 />
-
-
 
         </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="30dp" />
 
-        <Button
-            android:id="@+id/button"
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:onClick="saveAccount"
-            android:text="Criar conta" />
+            android:layout_height="wrap_content"
+            app:bootstrapBrand="regular"
+            app:bootstrapSize="lg"
+            app:buttonMode="regular"
+            app:showOutline="false"
+            app:roundedCorners="true"
+            android:text="Autenticar" />
 
     </LinearLayout>
 

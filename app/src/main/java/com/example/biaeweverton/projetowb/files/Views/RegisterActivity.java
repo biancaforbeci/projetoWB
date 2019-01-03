@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.biaeweverton.projetowb.R;
 import com.example.biaeweverton.projetowb.files.Controllers.Masks.MaskEditUtil;
 import com.example.biaeweverton.projetowb.files.Controllers.RegisterController;
@@ -55,6 +56,13 @@ public class RegisterActivity extends AppCompatActivity {
         number= findViewById(R.id.confirmCode);
         registerController = new RegisterController(this);
         fbAuth = FirebaseAuth.getInstance();
+        resendButton = findViewById(R.id.resend);
+        resendButton.setEnabled(false);
+
+        //View v = View.inflate(getApplicationContext(), R.layout.activity_login, null);
+        // btnPhonePage = v.findViewById(R.id.btnRegister);
+        //BootstrapButton btnTranslate = v.findViewById(R.id.btnPageTranslate);
+
 
     }
 
@@ -90,6 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
                 signInWithCredential(phoneAuthCredential);
+                resendButton.setEnabled(true);
                 Toast.makeText(RegisterActivity.this,"Enviado com sucesso",Toast.LENGTH_LONG).show();
             }
 
