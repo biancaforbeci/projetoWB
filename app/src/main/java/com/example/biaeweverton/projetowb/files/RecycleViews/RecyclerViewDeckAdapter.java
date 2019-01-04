@@ -170,10 +170,10 @@ public class RecyclerViewDeckAdapter extends RecyclerView.Adapter {
             @Override
             public void onLoadQuantityDataToStudy(int quantity) {
                 if(quantity == 0){
-                    view.btnEditCard.setEnabled(false);
+                    //view.btnEditCard.setEnabled(false);
                     view.btnStudyNow.setEnabled(false);
                 }else{
-                    view.btnEditCard.setEnabled(true);
+                    //view.btnEditCard.setEnabled(true);
                     view.btnStudyNow.setEnabled(true);
                 }
                 String tvStudy = "Estudar hoje: " + quantity + " Cards";
