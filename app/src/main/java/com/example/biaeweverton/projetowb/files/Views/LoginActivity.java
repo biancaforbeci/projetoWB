@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -46,10 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         auth = FirebaseAuth.getInstance();
-        View v = View.inflate(getApplicationContext(), R.layout.activity_login, null);
-        BootstrapButton btnPhonePage = v.findViewById(R.id.btnRegister);
-        BootstrapButton btnTranslate = v.findViewById(R.id.btnPageTranslate);
 
+        final BootstrapButton btnPageRegister = (BootstrapButton) findViewById(R.id.btnRegister);
+        final BootstrapButton btnTranslate = (BootstrapButton) findViewById(R.id.btnPageTranslate);
 
         //startActivity(new Intent(LoginActivity.this, MainActivity.class));
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -71,12 +71,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-        btnPhonePage.setOnClickListener(new View.OnClickListener() {
+        btnPageRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),RegisterActivity.class);
-                startActivity(i);
+                Intent intent= new Intent(getApplicationContext(),RegisterActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -87,7 +86,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
 
     }
 
@@ -143,31 +141,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

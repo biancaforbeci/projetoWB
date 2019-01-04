@@ -48,7 +48,7 @@
             app:buttonMode="regular"
             app:showOutline="false"
             app:roundedCorners="true"
-            android:text="Login com Telefone" />
+            app:bootstrapText="Login com Telefone"/>
 
         <Space
             android:layout_width="match_parent"
@@ -63,7 +63,7 @@
             app:buttonMode="regular"
             app:showOutline="false"
             app:roundedCorners="true"
-            android:text="Tela de Tradução" />
+            app:bootstrapText="Tela de Tradução" />
 
     </LinearLayout>
 

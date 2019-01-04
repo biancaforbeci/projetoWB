@@ -41,7 +41,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText number;
     private boolean SMSTyped;
     RegisterController registerController;
-    private Button resendButton;
     private FirebaseAuth fbAuth;
     private String phoneVerificationID;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks verificationCallbacks;
@@ -56,23 +55,40 @@ public class RegisterActivity extends AppCompatActivity {
         number= findViewById(R.id.confirmCode);
         registerController = new RegisterController(this);
         fbAuth = FirebaseAuth.getInstance();
-        resendButton = findViewById(R.id.resend);
-        resendButton.setEnabled(false);
 
-        //View v = View.inflate(getApplicationContext(), R.layout.activity_login, null);
-        // btnPhonePage = v.findViewById(R.id.btnRegister);
-        //BootstrapButton btnTranslate = v.findViewById(R.id.btnPageTranslate);
+        final BootstrapButton btnSend = (BootstrapButton) findViewById(R.id.btnSendSMS);
+        final BootstrapButton btnResend = (BootstrapButton) findViewById(R.id.resend);
+        final BootstrapButton btnRegister = (BootstrapButton) findViewById(R.id.btnLogin);
+
+
+        btnResend.setEnabled(false);
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendSMS();
+            }
+        });
+
+        btnResend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resendSMS();
+            }
+        });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyCode(number.getText().toString());
+            }
+        });
 
 
     }
 
-    public void saveAccount(View view){
 
-        verifyCode(number.getText().toString());
-
-    }
-
-    public void sendSMS(View view) {
+    private void sendSMS() {
 
             setUpVerificationCallbacks();
 
@@ -98,8 +114,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
                 signInWithCredential(phoneAuthCredential);
-                resendButton.setEnabled(true);
-                Toast.makeText(RegisterActivity.this,"Enviado com sucesso",Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -120,14 +134,16 @@ public class RegisterActivity extends AppCompatActivity {
                 // Save verification ID and resending token, use them later
                 phoneVerificationID=verificationId;
                 resendToken = token;
-
+                final BootstrapButton btnResend = (BootstrapButton) findViewById(R.id.resend);
+                btnResend.setEnabled(true);
+                Toast.makeText(RegisterActivity.this,"Enviado com sucesso",Toast.LENGTH_LONG).show();
             }
         };
     }
 
-    public void resendSMS(View view) {
+    private void resendSMS() {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                numberTyped.getText().toString(),        // Phone number to verify
+                "+55"+numberTyped.getText().toString(),        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)

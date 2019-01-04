@@ -60,7 +60,7 @@
 
 
         <com.beardedhen.androidbootstrap.BootstrapButton
-            android:id="@+id/btnSend"
+            android:id="@+id/btnSendSMS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -69,7 +69,7 @@
             app:buttonMode="regular"
             app:showOutline="false"
             app:roundedCorners="true"
-            android:text="Enviar" />
+            app:bootstrapText="Enviar" />
 
         <Space
             android:layout_width="match_parent"
@@ -85,7 +85,7 @@
             app:buttonMode="regular"
             app:showOutline="false"
             app:roundedCorners="true"
-            android:text="Tela de Tradução" />
+            app:bootstrapText="Reenviar" />
 
         <Space
             android:layout_width="match_parent"
@@ -122,7 +122,7 @@
             app:buttonMode="regular"
             app:showOutline="false"
             app:roundedCorners="true"
-            android:text="Autenticar" />
+            app:bootstrapText="Autenticar" />
 
     </LinearLayout>
 
