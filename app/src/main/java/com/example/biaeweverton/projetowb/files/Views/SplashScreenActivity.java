@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.biaeweverton.projetowb.R;
+import com.example.biaeweverton.projetowb.files.Models.Account;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -29,6 +30,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void showLogin(){
         if(fbAuth.getCurrentUser() != null){
             if(!FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber().isEmpty() || !FirebaseAuth.getInstance().getCurrentUser().getEmail().isEmpty()){
+                Account.userId = FirebaseAuth.getInstance().getUid();
                 Intent i = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(i);
             }

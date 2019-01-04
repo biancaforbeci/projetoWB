@@ -103,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Toast.makeText(getApplicationContext(),"Tente novamente, ocorreu um erro na autenticação !",Toast.LENGTH_LONG).show();
+                Log.i("Teste", e.getMessage().intern());
             }
         }
     }
