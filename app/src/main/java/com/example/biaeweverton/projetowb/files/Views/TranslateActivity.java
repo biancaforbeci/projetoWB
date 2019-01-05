@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.biaeweverton.projetowb.R;
 import com.ibm.watson.developer_cloud.language_translator.v3.LanguageTranslator;
 import com.ibm.watson.developer_cloud.language_translator.v3.model.TranslateOptions;
@@ -18,14 +20,16 @@ import com.ibm.watson.developer_cloud.language_translator.v3.util.Language;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Model;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetModelOptions;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class TranslateActivity extends AppCompatActivity {
     private TextView input;
-    private Button translate;
-    private Button clean;
     private TextView translatedText;
     private LanguageTranslator translationService;
     private String selectedTargetLanguage = Language.ENGLISH;
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,32 +37,53 @@ public class TranslateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_translate);
         translationService = initLanguageTranslatorService();
         input = findViewById(R.id.inputText);
-        translate = findViewById(R.id.translate);
         translatedText = findViewById(R.id.translated);
-        clean= findViewById(R.id.btnClean);
+        final BootstrapButton clean = (BootstrapButton) findViewById(R.id.btnClean);
 
-        input.addTextChangedListener(new EmptyTextWatcher() {
+        input.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onEmpty(boolean empty) {
-                if (empty) {
-                    translate.setEnabled(false);
-                    clean.setEnabled(false);
-                } else {
-                    translate.setEnabled(true);
-                    clean.setEnabled(true);
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                timer = new Timer();
+                final long DELAY = 500; //delay before changed
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                timer.cancel();
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        try {
+                            if(!input.getText().toString().isEmpty()) {
+                                callTranslateClass();  //taking words if input isn't empty and translation
+                            }
+                        }catch (Exception e){
+                            translatedText.setText(input.getText().toString());
+                        }
+                    }
+                },1000);
             }
         });
 
-        translate.setOnClickListener(new View.OnClickListener() {
-
+        clean.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new TranslationTask().execute(input.getText().toString());
+                translatedText.setText("");
             }
         });
+
+
     }
 
+    private void callTranslateClass(){
+        new TranslationTask().execute(input.getText().toString());
+    }
 
     private void showTranslation(final String translation) {
         runOnUiThread(new Runnable() {
@@ -78,13 +103,11 @@ public class TranslateActivity extends AppCompatActivity {
         return service;
     }
 
-    public void clean(View view) {
-        translatedText.setText("");
-    }
-
     private abstract class EmptyTextWatcher implements TextWatcher {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
         // assumes text is initially empty
         private boolean isEmpty = true;
 
@@ -100,7 +123,8 @@ public class TranslateActivity extends AppCompatActivity {
         }
 
         @Override
-        public void afterTextChanged(Editable s) {}
+        public void afterTextChanged(Editable s) {
+        }
 
         public abstract void onEmpty(boolean empty);
     }

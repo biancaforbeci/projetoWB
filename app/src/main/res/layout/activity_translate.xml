@@ -6,29 +6,26 @@
     android:layout_height="match_parent"
     tools:context="com.example.biaeweverton.projetowb.files.Views.TranslateActivity">
 
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/traducao" />
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:context="com.ibm.watson.developer_cloud.android.myapplication.MainActivity">
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            app:srcCompat="@drawable/traducao" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,23 +35,21 @@
             <EditText
                 android:id="@+id/inputText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="Texto em Português " />
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/translate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text="Traduzir" />
-
-        <Button
+        <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/btnClean"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="clean"
-            android:text="Limpar" />
+            android:text="LIMPAR"
+            app:bootstrapBrand="info"
+            app:bootstrapSize="lg"
+            app:buttonMode="regular"
+            app:showOutline="false"
+            app:roundedCorners="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
-                android:hint="Tradução"
+                android:hint="Tradução para Inglês"
                 android:textColor="@color/bootstrap_brand_primary"
                 android:textSize="20dp"
                 android:inputType="textMultiLine" />
