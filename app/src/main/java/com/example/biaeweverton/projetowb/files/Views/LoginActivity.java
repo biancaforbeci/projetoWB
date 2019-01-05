@@ -16,6 +16,7 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.example.biaeweverton.projetowb.R;
 import com.example.biaeweverton.projetowb.files.Controllers.LoginController;
 import com.example.biaeweverton.projetowb.files.Controllers.MainController;
+import com.example.biaeweverton.projetowb.files.Controllers.MyFirebaseMessagingService;
 import com.example.biaeweverton.projetowb.files.Models.Account;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -122,6 +123,9 @@ public class LoginActivity extends AppCompatActivity {
 
                             if(user == null) return;
                             Account.userId = user.getUid();
+
+                            MyFirebaseMessagingService myFirebaseMessagingService = new MyFirebaseMessagingService();
+                            myFirebaseMessagingService.saveNewIdNotification();
 
                             Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                             startActivity(i);

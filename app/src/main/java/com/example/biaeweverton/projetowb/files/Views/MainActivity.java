@@ -165,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.logout:
                 fbAuth.signOut();
                 mGoogleSignInClient.signOut();
+                finish();
                 Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(i);
                 break;
