@@ -1,11 +1,21 @@
 package com.example.biaeweverton.projetowb.files.Controllers;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.biaeweverton.projetowb.R;
 import com.example.biaeweverton.projetowb.files.Models.Account;
 import com.example.biaeweverton.projetowb.files.Models.Notification;
+import com.example.biaeweverton.projetowb.files.Views.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,8 +47,39 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.i("Teste", remoteMessage.getData().toString());
-        Log.i("Teste", "Estou aqui");
+        try{
+
+            NotificationManager mNotifyManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                mNotifyManager.createNotificationChannel(new NotificationChannel(getString(R.string.default_notification_channel_id), "Channel_Notification", NotificationManager.IMPORTANCE_HIGH));
+            }
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
+                            .setSmallIcon(R.drawable.ic_play)
+                            .setContentTitle(remoteMessage.getNotification().getTitle())
+                            .setContentText(remoteMessage.getNotification().getBody());
+            android.app.Notification notification = mBuilder.build();
+            mNotifyManager.notify(1, notification);
+        }catch (Exception e){
+            Log.i("Exception", e.getMessage());
+        }
+    }
+    public static void removeIdNotification(String idUser){
+        final FirebaseFirestore fire = FirebaseFirestore.getInstance();
+        fire.collection("Notification").whereEqualTo("idUser", idUser).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.getResult() != null){
+                    for(DocumentSnapshot docs : task.getResult().getDocuments()){
+                        fire.collection("Notification").document(docs.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                            }
+                        });
+                    }
+                }
+            }
+        });
     }
 
     public void saveNewIdNotification() {

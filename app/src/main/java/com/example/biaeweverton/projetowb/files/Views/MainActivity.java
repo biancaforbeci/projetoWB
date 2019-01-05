@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.biaeweverton.projetowb.R;
+import com.example.biaeweverton.projetowb.files.Controllers.MyFirebaseMessagingService;
 import com.example.biaeweverton.projetowb.files.Models.Account;
 import com.example.biaeweverton.projetowb.files.Models.Deck;
 import com.example.biaeweverton.projetowb.files.Controllers.MainController;
@@ -163,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.logout:
+                MyFirebaseMessagingService.removeIdNotification(fbAuth.getUid());
                 fbAuth.signOut();
                 mGoogleSignInClient.signOut();
                 finish();

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.biaeweverton.projetowb">
 
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -7,6 +8,8 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+
 
     <application
         android:allowBackup="true"
@@ -14,7 +17,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".files.Views.SplashScreenActivity"
             android:theme="@style/AppCompat.TelaCheia">
             <intent-filter>
@@ -32,12 +36,15 @@
         <activity
             android:name=".files.Views.EditCardActivity"
             android:parentActivityName=".files.Views.MainActivity" />
-        <activity android:name=".files.Views.LoginActivity"></activity>
+        <activity android:name=".files.Views.LoginActivity" />
         <service android:name=".files.Controllers.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id"/>
     </application>
 
 </manifest>
