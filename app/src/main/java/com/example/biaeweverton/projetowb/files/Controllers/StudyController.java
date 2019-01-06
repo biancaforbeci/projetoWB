@@ -15,18 +15,31 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
-
+/**
+ * @Author Weverton Couto
+ * @Description This class is responsible for obtaining data for StudyActivity
+ */
 public class StudyController {
     private FirebaseFirestore db;
     private Context context;
 
+    /**
+     * Constructor
+     * @param context -> Object Context
+     */
     public StudyController(Context context){
         this.db = FirebaseFirestore.getInstance();
         this.context = context;
     }
 
+    /**
+     * @Description  get All Card with right condition
+     * @param idDeck -> String containing idDeck
+     * @param studyControllerInterface -> Interface StudyControllerInterface
+     */
     public void getAllCards(String idDeck, final StudyControllerInterface studyControllerInterface){
         try{
+            // Where Condition 'idDeck' == idDeck AND 'day' == 1
             this.db.collection("card").whereEqualTo("idDeck", idDeck).whereEqualTo("day", 1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -50,6 +63,11 @@ public class StudyController {
 
     }
 
+    /**
+     * @Description  Update var day when is finish
+     * @param list -> Object ArrayList<Card>
+     * @param studyControllerInterface -> Interface StudyControllerInterface
+     */
     public void updateDayCard(final ArrayList<Card> list, final StudyControllerInterface studyControllerInterface){
         try{
             if(list.size() == 0){

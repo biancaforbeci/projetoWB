@@ -25,30 +25,39 @@ import java.util.Date;
 import javax.annotation.Nullable;
 
 /**
- * Created by biafo on 08/12/2018.
+ * @Author Weverton Couto
+ * @Description This class is responsible for sending one or many error to Firestore DataBase. In resume is generated a log.
  */
 
 public class MainController {
     public FirebaseFirestore db;
     private Context context;
+
+    /**
+     * Constructor
+     * @param context
+     */
     public MainController(Context context){
         this.db = FirebaseFirestore.getInstance();
         this.context = context;
     }
-    /*
-    * @param context -> context this activity
-    * @param rvDeck -> Recycle View to list all result
-    * @param idUser -> Find in the database with this id
-    * @return void
+
+    /**
+     * @Description  get deck list of a user
+     * @param context -> context this activity
+     * @param idUser -> Find in the database with this id
+     * @param mainControllerInterface -> Interface MainControllerInterface
+     * @return void
      */
-    public void getDeckList(final Context context, String idUser, final MainControllerInterface mainControllerInterface){
-        try{
+    public void getDeckList(final Context context, String idUser, final MainControllerInterface mainControllerInterface) {
+        try {
+            // Where condition 'idUser' == idUser
             this.db.collection("deck").whereEqualTo("idUser", idUser).addSnapshotListener(new com.google.firebase.firestore.EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                    if(queryDocumentSnapshots != null){
+                    if (queryDocumentSnapshots != null) {
                         ArrayList<Deck> deckList = new ArrayList<>();
-                        for(QueryDocumentSnapshot doc : queryDocumentSnapshots){
+                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                             Deck deck = doc.toObject(Deck.class);
                             deck.id = doc.getId();
                             deckList.add(deck);
@@ -57,14 +66,21 @@ public class MainController {
                     }
                 }
             });
-        }catch(Exception e){
-            LogController.shootError(this.db, new Log("getDeckList",new Date(), e.getMessage(), Account.userId));
+        } catch (Exception e) {
+            LogController.shootError(this.db, new Log("getDeckList", new Date(), e.getMessage(), Account.userId));
         }
 
     }
 
+    /**
+     * @Description Add new deck in the database
+     * @param deck -> Object deck
+     * @param mainControllerInterface -> Interface MainControllerInterface
+     * @return void
+     */
     public void addNewDeck(Deck deck, final MainControllerInterface mainControllerInterface){
         try{
+            // Add new objec deck in the database
             this.db.collection("deck").add(deck).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentReference> task) {
@@ -79,8 +95,14 @@ public class MainController {
 
     }
 
+    /**
+     * @Description Delete deck in the database
+     * @param idDeck -> String containing idDeck
+     * @return void
+     */
     public void deleteDeck(String idDeck){
         try{
+            // Delete object Deck in the database
             this.db.collection("deck").document(idDeck).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -93,8 +115,14 @@ public class MainController {
 
     }
 
+    /**
+     * @Description Update deck in the database
+     * @param deck -> Object Deck
+     * @return void
+     */
     public void updateDeck(Deck deck) {
         try{
+            // Set update in the object that is in database
             this.db.collection("deck").document(deck.id).set(deck).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -107,8 +135,15 @@ public class MainController {
 
     }
 
+    /**
+     * @Description Add new Card in the Deck
+     * @param card -> Object Card
+     * @param mainControllerInterface -> Interface MainControllerInterface
+     * @return void
+     */
     public void addItemDeck(Card card, final MainControllerInterface mainControllerInterface){
         try{
+            // Add new object Card in the database
             this.db.collection("card").add(card).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentReference> task) {
@@ -121,6 +156,12 @@ public class MainController {
 
     }
 
+    /**
+     * @Description Get Quantity of Card to Study
+     * @param idDeck -> String containing idDeck
+     * @param mainControllerInterface -> Interface MainControllerInterface
+     * @return void
+     */
     public void getQuantityDataToStudy(String idDeck, final MainControllerInterface mainControllerInterface){
         try{
             this.db.collection("card").whereEqualTo("idDeck", idDeck).whereEqualTo("day", 1).addSnapshotListener(new com.google.firebase.firestore.EventListener<QuerySnapshot>() {

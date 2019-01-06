@@ -24,17 +24,31 @@ import java.util.Date;
 
 import javax.annotation.Nullable;
 
+/**
+    @Author Weverton Couto
+    @Description This class is responsible for handling data in the EditCardActivity
+ */
 public class EditCardController {
     private FirebaseFirestore db;
     private Context context;
 
+    /**
+        Constructor
+     */
     public EditCardController(Context context){
         this.context = context;
         this.db = FirebaseFirestore.getInstance();
     }
 
+    /**
+        @Description get all cards from specific deck
+        @param idDeck -> id do deck
+        @param editCardInterface -> Interface EditCardInterface
+        @return void
+     */
     public void getListCard(String idDeck, final EditCardInterface editCardInterface){
         try{
+            // Where 'idDeck' == idDeck
             this.db.collection("card").whereEqualTo("idDeck", idDeck).addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -56,8 +70,15 @@ public class EditCardController {
         }
     }
 
+    /**
+        @Description update specific Card
+        @param card -> Object Card
+        @param editCardInterface -> Interface EditCardInterface
+        @return void
+     */
     public void updateCard(Card card, final EditCardInterface editCardInterface){
         try{
+            // Update Card passing your document id
             this.db.collection("card").document(card.getId()).set(card).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -72,8 +93,15 @@ public class EditCardController {
 
     }
 
+    /**
+        @Description delete card
+        @param card -> Object Card
+        @param editCardInterface -> Interface EditCardInterface
+        @return void
+     */
     public void deleteCard(Card card, final EditCardInterface editCardInterface){
         try {
+            // Delete card passing your collection id
             this.db.collection("card").document(card.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {

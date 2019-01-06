@@ -29,26 +29,25 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Date;
-
+/**
+ * @Author Weverton Couto
+ * @Description This class is responsible for sending one or many Notification
+ */
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
-    @Override
-    public void onNewToken(String s) {
-        FirebaseFirestore mFire = FirebaseFirestore.getInstance();
-        Notification notification = new Notification();
-        notification.setId(s);
 
-        mFire.collection("idMessaging").add(notification).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
+    /**
+     * Default Constructor
+     *
+     */
 
-            }
-        });
-    }
 
+    /**
+     * @Description Method responsible for to receive notification, sending by Firebase
+     * @param remoteMessage -> Object RemoteMessage
+     */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         try{
-
             NotificationManager mNotifyManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 mNotifyManager.createNotificationChannel(new NotificationChannel(getString(R.string.default_notification_channel_id), "Channel_Notification", NotificationManager.IMPORTANCE_HIGH));
@@ -63,13 +62,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.i("Exception", e.getMessage());
         }
     }
+
+    /**
+     * @Description Remove Object Notification of database
+     * @param idUser -> String containing idUser
+     */
     public static void removeIdNotification(String idUser){
         final FirebaseFirestore fire = FirebaseFirestore.getInstance();
+        // Where condition 'idUser' == idUser
         fire.collection("Notification").whereEqualTo("idUser", idUser).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.getResult() != null){
                     for(DocumentSnapshot docs : task.getResult().getDocuments()){
+                        // Remove Object
                         fire.collection("Notification").document(docs.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -82,6 +88,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         });
     }
 
+    /**
+     * @Description Add Object Notification of User in Database
+     */
     public void saveNewIdNotification() {
         final String userId = FirebaseAuth.getInstance().getUid();
         final FirebaseFirestore fire = FirebaseFirestore.getInstance();
@@ -95,6 +104,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         notification.setId(task.getResult().getToken());
                         notification.setIdUser(userId);
 
+                        // Where Condition 'idUser' == idUser
                         fire.collection("Notification").whereEqualTo("idUser", userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -113,6 +123,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
         });
     }
+
+    /**
+     * @Description  Private Method that insert new object notification in database (reuse)
+     * @param fire -> FirebaseFirestore
+     * @param notification -> Notification
+     */
     private void saveID(FirebaseFirestore fire, Notification notification){
         fire.collection("Notification").add(notification).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
