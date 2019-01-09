@@ -1,6 +1,9 @@
 package com.example.biaeweverton.projetowb.files.Views;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import java.util.Calendar;
+
 public class SplashScreenActivity extends AppCompatActivity {
     private FirebaseAuth fbAuth;
     @Override
@@ -23,7 +28,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         fbAuth = FirebaseAuth.getInstance();
-
         Handler handle = new Handler();
         handle.postDelayed(new Runnable() {
             @Override

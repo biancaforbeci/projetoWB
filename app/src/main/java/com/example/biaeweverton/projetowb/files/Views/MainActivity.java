@@ -1,7 +1,10 @@
 package com.example.biaeweverton.projetowb.files.Views;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +36,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -100,6 +104,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Notification Service
+
+        SharedPreferences sharedPreferences = getSharedPreferences("myShare", 0);
+        SharedPreferences.Editor editor  = sharedPreferences.edit();
+        String notification = sharedPreferences.getString("notification", null);
+
+        if(notification == null){
+            Calendar calendar = Calendar.getInstance();
+
+            calendar.set(Calendar.HOUR_OF_DAY, 8);
+            Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+            editor.putString("notification", "add");
+            editor.apply();
+        }
     }
 
     public void openDialog(View view) {
