@@ -1,5 +1,5 @@
 # projetoWB - Easy Learn
-Projeto Finalizado
+Projeto Finalizado feito com o amigo Weverton Couto
 
 # Prints
 
